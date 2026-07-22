@@ -1,0 +1,48 @@
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 6px;
+}
+
+.subhead {
+  font-size: 14px;
+  color: var(--text-2);
+  margin: 0 0 28px;
+  line-height: 1.5;
+  max-width: 480px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.meta {
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+.demoLink {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--text-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.demoLink:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
