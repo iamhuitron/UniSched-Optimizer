@@ -6,10 +6,14 @@ import { solve } from '@/lib/solver';
 import UploadPanel from '@/components/UploadPanel';
 import PreferencesForm from '@/components/PreferencesForm';
 import ResultsList from '@/components/ResultsList';
+import ManualBuilder from '@/components/ManualBuilder';
 import styles from './page.module.css';
+
+type Mode = 'auto' | 'manual';
 
 export default function Home() {
   const [dataset, setDataset] = useState<ScheduleDataset | null>(null);
+  const [mode, setMode] = useState<Mode>('auto');
   const [options, setOptions] = useState<ScheduleOption[] | null>(null);
   const [loadingDemo, setLoadingDemo] = useState(false);
 
@@ -29,12 +33,18 @@ export default function Home() {
     setOptions(solve(dataset.subjects, prefs));
   }
 
+  function reset() {
+    setDataset(null);
+    setOptions(null);
+    setMode('auto');
+  }
+
   return (
     <main className={styles.main}>
       <h1 className={styles.h1}>horario-óptimo</h1>
       <p className={styles.subhead}>
         Sube el horario oficial de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de
-        grupos sin choques.
+        grupos sin choques. O arma el tuyo a mano y te avisamos si algo se empalma.
       </p>
 
       {!dataset && (
@@ -46,26 +56,52 @@ export default function Home() {
         </div>
       )}
 
-      {dataset && !options && (
+      {dataset && (
         <div className={styles.step}>
           <p className={styles.meta}>
             {dataset.institution}
             {dataset.program ? ` · ${dataset.program}` : ''}
             {dataset.term ? ` · ${dataset.term}` : ''} — {dataset.subjects.length} materias detectadas
           </p>
-          <PreferencesForm subjects={dataset.subjects} onSubmit={handlePrefs} />
-          <button type="button" className={styles.demoLink} onClick={() => setDataset(null)}>
+
+          <div className={styles.modeTabs}>
+            <button
+              type="button"
+              className={styles.modeTab}
+              data-active={mode === 'auto'}
+              onClick={() => setMode('auto')}
+            >
+              Automático — que lo arme la computadora
+            </button>
+            <button
+              type="button"
+              className={styles.modeTab}
+              data-active={mode === 'manual'}
+              onClick={() => {
+                setMode('manual');
+                setOptions(null);
+              }}
+            >
+              Manual — lo armo yo, grupo por grupo
+            </button>
+          </div>
+
+          {mode === 'auto' && !options && <PreferencesForm subjects={dataset.subjects} onSubmit={handlePrefs} />}
+
+          {mode === 'auto' && options && (
+            <>
+              <button type="button" className={styles.demoLink} onClick={() => setOptions(null)}>
+                ← Ajustar restricciones
+              </button>
+              <ResultsList options={options} />
+            </>
+          )}
+
+          {mode === 'manual' && <ManualBuilder subjects={dataset.subjects} />}
+
+          <button type="button" className={styles.demoLink} onClick={reset}>
             ← Subir otro archivo
           </button>
-        </div>
-      )}
-
-      {dataset && options && (
-        <div className={styles.step}>
-          <button type="button" className={styles.demoLink} onClick={() => setOptions(null)}>
-            ← Ajustar restricciones
-          </button>
-          <ResultsList options={options} />
         </div>
       )}
     </main>

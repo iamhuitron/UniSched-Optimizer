@@ -1,6 +1,7 @@
 'use client';
 
-import type { ScheduleOption, TimeBlock } from '@/lib/types';
+import type { ChosenSection, TimeBlock } from '@/lib/types';
+import { blockKey, conflictingBlockKeys } from '@/lib/conflicts';
 import styles from './ScheduleGrid.module.css';
 
 const DAY_LABELS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
@@ -40,15 +41,21 @@ function colorFor(code: string, allCodes: string[]): string {
   return PALETTE[idx % PALETTE.length] ?? '#4a4a4a';
 }
 
-export default function ScheduleGrid({ option }: { option: ScheduleOption }) {
-  const allBlocks = option.sections.flatMap((s) =>
+export default function ScheduleGrid({ sections }: { sections: ChosenSection[] }) {
+  const allBlocks = sections.flatMap((s) =>
     s.section.blocks.map((b) => ({ ...b, subjectCode: s.subjectCode, subjectName: s.subjectName }))
   );
-  const codes = Array.from(new Set(option.sections.map((s) => s.subjectCode)));
+  const codes = Array.from(new Set(sections.map((s) => s.subjectCode)));
+  const conflictKeys = conflictingBlockKeys(sections);
+
+  if (allBlocks.length === 0) {
+    return <p className={styles.emptyHint}>Elige al menos una materia para ver el calendario.</p>;
+  }
+
   const daysPresent = Array.from(new Set(allBlocks.map((b) => b.day))).sort((a, b) => a - b);
   const dayCols = daysPresent.length > 0 ? daysPresent : [0, 1, 2, 3, 4];
   const { first, last } = hourRange(allBlocks);
-  const hourCount = last - first;
+  const hourCount = Math.max(1, last - first);
   const hourMarks = Array.from({ length: hourCount + 1 }, (_, i) => first + i);
 
   return (
@@ -89,17 +96,21 @@ export default function ScheduleGrid({ option }: { option: ScheduleOption }) {
             const colIndex = dayCols.indexOf(b.day);
             if (colIndex === -1) return null;
             const span = slot(b.end, first) - slot(b.start, first);
+            const conflicted = conflictKeys.has(blockKey(b.subjectCode, b));
             return (
               <div
                 key={i}
-                className={styles.ev}
+                className={`${styles.ev}${conflicted ? ` ${styles.conflict}` : ''}`}
                 style={{
                   gridColumn: `${colIndex + 2} / ${colIndex + 3}`,
                   gridRow: rowRange(b.start, b.end, first),
                   background: colorFor(b.subjectCode, codes),
                 }}
               >
-                <b>{b.subjectName}</b>
+                <b>
+                  {conflicted ? '⚠ ' : ''}
+                  {b.subjectName}
+                </b>
                 <span>
                   {b.start}–{b.end}
                 </span>
@@ -110,7 +121,7 @@ export default function ScheduleGrid({ option }: { option: ScheduleOption }) {
         </div>
       </div>
       <div className={styles.legend}>
-        {option.sections.map((s) => (
+        {sections.map((s) => (
           <div key={s.subjectCode} className={styles.legendItem}>
             <span className={styles.dot} style={{ background: colorFor(s.subjectCode, codes) }} />
             <span>

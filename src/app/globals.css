@@ -13,6 +13,9 @@
   --ok-text: #276b3f;
   --warn-bg: #fbf1e3;
   --warn-text: #93591a;
+  --danger: #b3261e;
+  --danger-bg: #fbeceb;
+  --danger-text: #8c1d17;
 }
 
 * {

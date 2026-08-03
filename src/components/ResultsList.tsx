@@ -15,6 +15,7 @@ export default function ResultsList({ options }: { options: ScheduleOption[] }) 
       <p className={styles.empty}>
         No encontramos ninguna combinación que cumpla todas las restricciones a la vez. Prueba quitando una
         restricción — normalmente la ventana de horario o el día libre es la que deja sin opciones a alguna materia.
+        También puedes probar el modo manual para ver exactamente dónde está el choque.
       </p>
     );
   }
@@ -47,7 +48,7 @@ export default function ResultsList({ options }: { options: ScheduleOption[] }) 
         <span>{option.stats.totalGapMinutes} min de huecos</span>
       </div>
 
-      <ScheduleGrid option={option} />
+      <ScheduleGrid sections={option.sections} />
     </div>
   );
 }

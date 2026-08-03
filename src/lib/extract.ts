@@ -115,7 +115,7 @@ function parseJsonResponse(raw: string): ScheduleDataset {
     .trim();
   try {
     return JSON.parse(cleaned) as ScheduleDataset;
-  } catch (err) {
+  } catch {
     throw new Error(
       `Claude no devolvió JSON válido. Primeros 300 caracteres de la respuesta: ${cleaned.slice(0, 300)}`
     );

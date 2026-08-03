@@ -1,8 +1,8 @@
 {
   "name": "horario-optimo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Sube el PDF de horarios de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de grupos sin choques.",
+  "description": "Sube el PDF de horarios de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de grupos sin choques. O arma el tuyo a mano.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,7 +21,7 @@
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "tsx": "^4.23.1",
+    "tsx": "^4.23.5",
     "typescript": "^5.7.0",
     "vitest": "^3.2.0"
   },

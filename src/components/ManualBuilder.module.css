@@ -1,0 +1,65 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pickers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subjectRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subjectName {
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font: inherit;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-2);
+  background: var(--panel);
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.chip[data-active='true'] {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hint {
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+
+.conflictBox {
+  font-size: 12.5px;
+  color: var(--danger-text);
+  background: var(--danger-bg);
+  padding: 10px 14px;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+.conflictBox ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
