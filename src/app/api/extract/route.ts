@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 const ACCEPTED_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
-const MAX_BYTES = 15 * 1024 * 1024; // 15MB, well under the API's request-size limit
+const MAX_BYTES = 15 * 1024 * 1024;
 
 export async function POST(request: Request) {
   let form: FormData;

@@ -1,14 +1,16 @@
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
+  width: 100%;
 }
 
 .board {
   overflow-x: auto;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--panel);
+  box-shadow: var(--shadow-sm);
 }
 
 .grid {
@@ -37,7 +39,7 @@
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-2);
   border-bottom: 1px solid var(--border-2);
   background: var(--panel);
@@ -54,13 +56,14 @@
 }
 
 .ev {
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   padding: 3px 6px;
   font-size: 10px;
   line-height: 1.25;
   overflow: hidden;
   margin: 1px 3px;
   color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .ev.conflict {
@@ -71,7 +74,7 @@
 .ev b {
   display: block;
   font-size: 10.5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .ev span {
@@ -104,8 +107,9 @@
 .emptyHint {
   font-size: 12.5px;
   color: var(--text-3);
-  padding: 20px;
+  padding: var(--space-6);
   text-align: center;
   border: 1px dashed var(--border-2);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
+  width: 100%;
 }

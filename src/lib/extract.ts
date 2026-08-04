@@ -50,7 +50,6 @@ Reglas:
 
 export interface ExtractOptions {
   model?: string;
-  /** extra hint from the user, e.g. "esto es de la Facultad de Ingeniería de la UANL" */
   hint?: string;
 }
 
@@ -122,8 +121,6 @@ function parseJsonResponse(raw: string): ScheduleDataset {
   }
 }
 
-/** Cheap structural check — not a full schema validator, just enough to fail loudly
- *  and clearly instead of letting a malformed dataset reach the solver silently. */
 function validateDataset(data: unknown): asserts data is ScheduleDataset {
   if (typeof data !== 'object' || data === null) throw new Error('El resultado no es un objeto JSON.');
   const d = data as Record<string, unknown>;

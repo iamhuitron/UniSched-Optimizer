@@ -41,28 +41,47 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.h1}>horario-óptimo</h1>
-      <p className={styles.subhead}>
-        Sube el horario oficial de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de
-        grupos sin choques. O arma el tuyo a mano y te avisamos si algo se empalma.
-      </p>
+      <header className={styles.header}>
+        <span className={styles.eyebrow}>Planeador de horarios universitarios</span>
+        <h1 className={styles.h1}>horario-óptimo</h1>
+        {!dataset && (
+          <p className={styles.subhead}>
+            Sube el horario oficial de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de
+            grupos sin choques. O arma el tuyo a mano y te avisamos si algo se empalma.
+          </p>
+        )}
+      </header>
 
       {!dataset && (
-        <div className={styles.step}>
+        <div className={styles.card}>
           <UploadPanel onExtracted={setDataset} />
           <button type="button" className={styles.demoLink} onClick={loadDemo} disabled={loadingDemo}>
-            {loadingDemo ? 'Cargando…' : 'O prueba con el ejemplo real de FES Cuautitlán →'}
+            {loadingDemo ? (
+              <>
+                <span className={styles.spinner} aria-hidden="true" /> Cargando…
+              </>
+            ) : (
+              'O prueba con el ejemplo real de FES Cuautitlán →'
+            )}
           </button>
         </div>
       )}
 
       {dataset && (
-        <div className={styles.step}>
-          <p className={styles.meta}>
-            {dataset.institution}
-            {dataset.program ? ` · ${dataset.program}` : ''}
-            {dataset.term ? ` · ${dataset.term}` : ''} — {dataset.subjects.length} materias detectadas
-          </p>
+        <div className={styles.working}>
+          <div className={styles.datasetBar}>
+            <div className={styles.datasetInfo}>
+              <span className={styles.datasetName}>{dataset.institution}</span>
+              <span className={styles.datasetMeta}>
+                {[dataset.program, dataset.term].filter(Boolean).join(' · ')}
+                {dataset.program || dataset.term ? ' · ' : ''}
+                {dataset.subjects.length} materias detectadas
+              </span>
+            </div>
+            <button type="button" className={styles.changeFile} onClick={reset}>
+              Cambiar archivo
+            </button>
+          </div>
 
           <div className={styles.modeTabs}>
             <button
@@ -71,7 +90,8 @@ export default function Home() {
               data-active={mode === 'auto'}
               onClick={() => setMode('auto')}
             >
-              Automático — que lo arme la computadora
+              Automático
+              <span>que lo arme la computadora</span>
             </button>
             <button
               type="button"
@@ -82,26 +102,25 @@ export default function Home() {
                 setOptions(null);
               }}
             >
-              Manual — lo armo yo, grupo por grupo
+              Manual
+              <span>lo armo yo, grupo por grupo</span>
             </button>
           </div>
 
-          {mode === 'auto' && !options && <PreferencesForm subjects={dataset.subjects} onSubmit={handlePrefs} />}
+          <div className={styles.card}>
+            {mode === 'auto' && !options && <PreferencesForm subjects={dataset.subjects} onSubmit={handlePrefs} />}
 
-          {mode === 'auto' && options && (
-            <>
-              <button type="button" className={styles.demoLink} onClick={() => setOptions(null)}>
-                ← Ajustar restricciones
-              </button>
-              <ResultsList options={options} />
-            </>
-          )}
+            {mode === 'auto' && options && (
+              <>
+                <button type="button" className={styles.backLink} onClick={() => setOptions(null)}>
+                  ← Ajustar restricciones
+                </button>
+                <ResultsList options={options} />
+              </>
+            )}
 
-          {mode === 'manual' && <ManualBuilder subjects={dataset.subjects} />}
-
-          <button type="button" className={styles.demoLink} onClick={reset}>
-            ← Subir otro archivo
-          </button>
+            {mode === 'manual' && <ManualBuilder subjects={dataset.subjects} />}
+          </div>
         </div>
       )}
     </main>

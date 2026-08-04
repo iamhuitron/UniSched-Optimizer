@@ -10,46 +10,21 @@
       "name": "Derecho informático",
       "credits": 8,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Xochitl Muñoz García",
-          "blocks": [
-            { "day": 1, "start": "12:00", "end": "14:00", "room": "A11-1102" },
-            { "day": 3, "start": "12:00", "end": "14:00", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "professor": "Erendira González Colín",
-          "blocks": [
-            { "day": 1, "start": "12:00", "end": "14:00", "room": "A11-1101" },
-            { "day": 3, "start": "12:00", "end": "14:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "José Cruz Gervacio",
-          "blocks": [
-            { "day": 1, "start": "12:00", "end": "14:00", "room": "A13-13105" },
-            { "day": 3, "start": "12:00", "end": "14:00", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "José Cruz Gervacio",
-          "blocks": [
-            { "day": 0, "start": "16:00", "end": "18:00", "room": "A11-1103" },
-            { "day": 2, "start": "16:00", "end": "18:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "José Francisco Covarrubias García",
-          "blocks": [
-            { "day": 0, "start": "16:00", "end": "18:00", "room": "A11-1101" },
-            { "day": 2, "start": "16:00", "end": "18:00", "room": "A11-1101" }
-          ]
-        }
+        { "id": "1301", "professor": "Xochitl Muñoz García", "blocks": [
+          { "day": 1, "start": "12:00", "end": "14:00", "room": "A11-1102" },
+          { "day": 3, "start": "12:00", "end": "14:00", "room": "A11-1102" } ] },
+        { "id": "1302", "professor": "Erendira González Colín", "blocks": [
+          { "day": 1, "start": "12:00", "end": "14:00", "room": "A11-1101" },
+          { "day": 3, "start": "12:00", "end": "14:00", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "José Cruz Gervacio", "blocks": [
+          { "day": 1, "start": "12:00", "end": "14:00", "room": "A13-13105" },
+          { "day": 3, "start": "12:00", "end": "14:00", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "José Cruz Gervacio", "blocks": [
+          { "day": 0, "start": "16:00", "end": "18:00", "room": "A11-1103" },
+          { "day": 2, "start": "16:00", "end": "18:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "José Francisco Covarrubias García", "blocks": [
+          { "day": 0, "start": "16:00", "end": "18:00", "room": "A11-1101" },
+          { "day": 2, "start": "16:00", "end": "18:00", "room": "A11-1101" } ] }
       ]
     },
     {
@@ -57,46 +32,21 @@
       "name": "Metodología de la investigación",
       "credits": 8,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Irene Correa Esquivel",
-          "blocks": [
-            { "day": 0, "start": "10:00", "end": "12:00", "room": "A11-1102" },
-            { "day": 2, "start": "10:00", "end": "12:00", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "professor": "Elvira Haidee Ortega Lara",
-          "blocks": [
-            { "day": 0, "start": "10:00", "end": "12:00", "room": "A11-1101" },
-            { "day": 2, "start": "10:00", "end": "12:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "Francisco Ledesma Cárdenas",
-          "blocks": [
-            { "day": 0, "start": "10:30", "end": "12:30", "room": "A13-13105" },
-            { "day": 4, "start": "10:30", "end": "12:30", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "Ernesto Herrera Molina",
-          "blocks": [
-            { "day": 1, "start": "17:00", "end": "19:00", "room": "A11-1103" },
-            { "day": 3, "start": "17:00", "end": "19:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "Irene Correa Esquivel",
-          "blocks": [
-            { "day": 1, "start": "17:00", "end": "19:00", "room": "A11-1101" },
-            { "day": 3, "start": "17:00", "end": "19:00", "room": "A11-1101" }
-          ]
-        }
+        { "id": "1301", "professor": "Irene Correa Esquivel", "blocks": [
+          { "day": 0, "start": "10:00", "end": "12:00", "room": "A11-1102" },
+          { "day": 2, "start": "10:00", "end": "12:00", "room": "A11-1102" } ] },
+        { "id": "1302", "professor": "Elvira Haidee Ortega Lara", "blocks": [
+          { "day": 0, "start": "10:00", "end": "12:00", "room": "A11-1101" },
+          { "day": 2, "start": "10:00", "end": "12:00", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "Francisco Ledesma Cárdenas", "blocks": [
+          { "day": 0, "start": "10:30", "end": "12:30", "room": "A13-13105" },
+          { "day": 4, "start": "10:30", "end": "12:30", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "Ernesto Herrera Molina", "blocks": [
+          { "day": 1, "start": "17:00", "end": "19:00", "room": "A11-1103" },
+          { "day": 3, "start": "17:00", "end": "19:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "Irene Correa Esquivel", "blocks": [
+          { "day": 1, "start": "17:00", "end": "19:00", "room": "A11-1101" },
+          { "day": 3, "start": "17:00", "end": "19:00", "room": "A11-1101" } ] }
       ]
     },
     {
@@ -104,51 +54,26 @@
       "name": "Informática III. Análisis y diseño de sistemas I",
       "credits": 12,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Valentín Roldán Vázquez",
-          "blocks": [
-            { "day": 0, "start": "12:00", "end": "14:00", "room": "A14-14113" },
-            { "day": 2, "start": "12:00", "end": "14:30", "room": "A11-1102" },
-            { "day": 4, "start": "09:30", "end": "12:00", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "professor": "Juan José García Ruiz",
-          "blocks": [
-            { "day": 0, "start": "12:00", "end": "14:30", "room": "A11-1101" },
-            { "day": 2, "start": "12:00", "end": "14:00", "room": "A14-14113" },
-            { "day": 4, "start": "09:30", "end": "12:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "Elizabeth Barrera Romero",
-          "blocks": [
-            { "day": 0, "start": "13:00", "end": "15:00", "room": "A14-14112" },
-            { "day": 1, "start": "07:30", "end": "10:00", "room": "A13-13105" },
-            { "day": 3, "start": "07:30", "end": "10:00", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "Erika Gabriela Esquivel Gómez",
-          "blocks": [
-            { "day": 1, "start": "19:00", "end": "21:00", "room": "A11-1103" },
-            { "day": 3, "start": "19:00", "end": "21:00", "room": "A14-14113" },
-            { "day": 5, "start": "11:00", "end": "14:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "Julio César Ramón Maldonado Rodríguez",
-          "blocks": [
-            { "day": 1, "start": "19:00", "end": "21:00", "room": "A11-1101" },
-            { "day": 3, "start": "19:00", "end": "21:00", "room": "A14-14112" },
-            { "day": 5, "start": "11:00", "end": "14:00", "room": "A11-1101" }
-          ]
-        }
+        { "id": "1301", "professor": "Valentín Roldán Vázquez", "blocks": [
+          { "day": 0, "start": "12:00", "end": "14:00", "room": "A14-14113" },
+          { "day": 2, "start": "12:00", "end": "14:30", "room": "A11-1102" },
+          { "day": 4, "start": "09:30", "end": "12:00", "room": "A11-1102" } ] },
+        { "id": "1302", "professor": "Juan José García Ruiz", "blocks": [
+          { "day": 0, "start": "12:00", "end": "14:30", "room": "A11-1101" },
+          { "day": 2, "start": "12:00", "end": "14:00", "room": "A14-14113" },
+          { "day": 4, "start": "09:30", "end": "12:00", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "Elizabeth Barrera Romero", "blocks": [
+          { "day": 0, "start": "13:00", "end": "15:00", "room": "A14-14112" },
+          { "day": 1, "start": "07:30", "end": "10:00", "room": "A13-13105" },
+          { "day": 3, "start": "07:30", "end": "10:00", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "Erika Gabriela Esquivel Gómez", "blocks": [
+          { "day": 1, "start": "19:00", "end": "21:00", "room": "A11-1103" },
+          { "day": 3, "start": "19:00", "end": "21:00", "room": "A14-14113" },
+          { "day": 5, "start": "11:00", "end": "14:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "Julio César Ramón Maldonado Rodríguez", "blocks": [
+          { "day": 1, "start": "19:00", "end": "21:00", "room": "A11-1101" },
+          { "day": 3, "start": "19:00", "end": "21:00", "room": "A14-14112" },
+          { "day": 5, "start": "11:00", "end": "14:00", "room": "A11-1101" } ] }
       ]
     },
     {
@@ -156,51 +81,26 @@
       "name": "Programación III. Programación visual",
       "credits": 8,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Rocío González Hernández",
-          "blocks": [
-            { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14112" },
-            { "day": 2, "start": "08:30", "end": "10:00", "room": "A11-1102" },
-            { "day": 4, "start": "08:00", "end": "09:30", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "professor": "María Guadalupe Vázquez Salazar",
-          "blocks": [
-            { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14113" },
-            { "day": 2, "start": "08:30", "end": "10:00", "room": "A11-1101" },
-            { "day": 4, "start": "08:00", "end": "09:30", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "Clarisa Clemente Rodríguez",
-          "blocks": [
-            { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14111" },
-            { "day": 2, "start": "09:00", "end": "10:30", "room": "A13-13105" },
-            { "day": 4, "start": "09:00", "end": "10:30", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "Guadalupe Hernández Gutiérrez",
-          "blocks": [
-            { "day": 0, "start": "19:00", "end": "21:00", "room": "A14-14112" },
-            { "day": 2, "start": "19:00", "end": "21:00", "room": "A11-1103" },
-            { "day": 4, "start": "19:00", "end": "20:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "Liana López Pacheco",
-          "blocks": [
-            { "day": 0, "start": "19:00", "end": "21:00", "room": "A14-14113" },
-            { "day": 2, "start": "19:00", "end": "21:00", "room": "A11-1101" },
-            { "day": 4, "start": "20:00", "end": "21:00", "room": "A11-1101" }
-          ]
-        }
+        { "id": "1301", "professor": "Rocío González Hernández", "blocks": [
+          { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14112" },
+          { "day": 2, "start": "08:30", "end": "10:00", "room": "A11-1102" },
+          { "day": 4, "start": "08:00", "end": "09:30", "room": "A11-1102" } ] },
+        { "id": "1302", "professor": "María Guadalupe Vázquez Salazar", "blocks": [
+          { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14113" },
+          { "day": 2, "start": "08:30", "end": "10:00", "room": "A11-1101" },
+          { "day": 4, "start": "08:00", "end": "09:30", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "Clarisa Clemente Rodríguez", "blocks": [
+          { "day": 0, "start": "08:00", "end": "10:00", "room": "A14-14111" },
+          { "day": 2, "start": "09:00", "end": "10:30", "room": "A13-13105" },
+          { "day": 4, "start": "09:00", "end": "10:30", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "Guadalupe Hernández Gutiérrez", "blocks": [
+          { "day": 0, "start": "19:00", "end": "21:00", "room": "A14-14112" },
+          { "day": 2, "start": "19:00", "end": "21:00", "room": "A11-1103" },
+          { "day": 4, "start": "19:00", "end": "20:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "Liana López Pacheco", "blocks": [
+          { "day": 0, "start": "19:00", "end": "21:00", "room": "A14-14113" },
+          { "day": 2, "start": "19:00", "end": "21:00", "room": "A11-1101" },
+          { "day": 4, "start": "20:00", "end": "21:00", "room": "A11-1101" } ] }
       ]
     },
     {
@@ -208,45 +108,21 @@
       "name": "Sistemas operativos",
       "credits": 8,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Gilta Pixan Dalai Casco Urrutia",
-          "blocks": [
-            { "day": 1, "start": "10:00", "end": "12:00", "room": "A11-1102" },
-            { "day": 3, "start": "10:00", "end": "12:00", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "blocks": [
-            { "day": 1, "start": "10:00", "end": "12:00", "room": "A11-1101" },
-            { "day": 3, "start": "10:00", "end": "12:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "Elizabeth Barrera Romero",
-          "blocks": [
-            { "day": 2, "start": "12:30", "end": "14:30", "room": "A13-13105" },
-            { "day": 4, "start": "12:30", "end": "14:30", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "José Alberto Gómez Escojido",
-          "blocks": [
-            { "day": 1, "start": "15:00", "end": "17:00", "room": "A11-1103" },
-            { "day": 3, "start": "15:00", "end": "17:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "Erika Gabriela Esquivel Gómez",
-          "blocks": [
-            { "day": 1, "start": "15:00", "end": "17:00", "room": "A11-1101" },
-            { "day": 3, "start": "15:00", "end": "17:00", "room": "A11-1101" }
-          ]
-        }
+        { "id": "1301", "professor": "Gilta Pixan Dalai Casco Urrutia", "blocks": [
+          { "day": 1, "start": "10:00", "end": "12:00", "room": "A11-1102" },
+          { "day": 3, "start": "10:00", "end": "12:00", "room": "A11-1102" } ] },
+        { "id": "1302", "blocks": [
+          { "day": 1, "start": "10:00", "end": "12:00", "room": "A11-1101" },
+          { "day": 3, "start": "10:00", "end": "12:00", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "Elizabeth Barrera Romero", "blocks": [
+          { "day": 2, "start": "12:30", "end": "14:30", "room": "A13-13105" },
+          { "day": 4, "start": "12:30", "end": "14:30", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "José Alberto Gómez Escojido", "blocks": [
+          { "day": 1, "start": "15:00", "end": "17:00", "room": "A11-1103" },
+          { "day": 3, "start": "15:00", "end": "17:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "Erika Gabriela Esquivel Gómez", "blocks": [
+          { "day": 1, "start": "15:00", "end": "17:00", "room": "A11-1101" },
+          { "day": 3, "start": "15:00", "end": "17:00", "room": "A11-1101" } ] }
       ]
     },
     {
@@ -254,51 +130,24 @@
       "name": "Matemáticas III. Matemáticas financieras",
       "credits": 8,
       "sections": [
-        {
-          "id": "1301",
-          "professor": "Julio Moisés Sánchez Barrera",
-          "blocks": [
-            { "day": 1, "start": "08:00", "end": "10:00", "room": "A11-1102" },
-            { "day": 3, "start": "08:00", "end": "10:00", "room": "A11-1102" }
-          ]
-        },
-        {
-          "id": "1302",
-          "blocks": [
-            { "day": 1, "start": "08:00", "end": "10:00", "room": "A11-1101" },
-            { "day": 3, "start": "08:00", "end": "10:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1303",
-          "professor": "Reyna Arriaga Díaz",
-          "blocks": [
-            { "day": 1, "start": "10:00", "end": "12:00", "room": "A13-13105" },
-            { "day": 3, "start": "10:00", "end": "12:00", "room": "A13-13105" }
-          ]
-        },
-        {
-          "id": "1351",
-          "professor": "Esteban Arriaga Estrada",
-          "blocks": [
-            { "day": 0, "start": "18:00", "end": "19:00", "room": "A11-1103" },
-            { "day": 2, "start": "18:00", "end": "19:00", "room": "A11-1103" },
-            { "day": 4, "start": "17:00", "end": "19:00", "room": "A11-1103" }
-          ]
-        },
-        {
-          "id": "1352",
-          "professor": "Alicia Acevedo Soriano",
-          "blocks": [
-            { "day": 0, "start": "18:00", "end": "19:00", "room": "A11-1101" },
-            { "day": 2, "start": "18:00", "end": "19:00", "room": "A11-1101" },
-            { "day": 4, "start": "18:00", "end": "20:00", "room": "A11-1101" }
-          ]
-        },
-        {
-          "id": "1353",
-          "blocks": [{ "day": 5, "start": "07:00", "end": "11:00", "room": "A14-14103" }]
-        }
+        { "id": "1301", "professor": "Julio Moisés Sánchez Barrera", "blocks": [
+          { "day": 1, "start": "08:00", "end": "10:00", "room": "A11-1102" },
+          { "day": 3, "start": "08:00", "end": "10:00", "room": "A11-1102" } ] },
+        { "id": "1302", "blocks": [
+          { "day": 1, "start": "08:00", "end": "10:00", "room": "A11-1101" },
+          { "day": 3, "start": "08:00", "end": "10:00", "room": "A11-1101" } ] },
+        { "id": "1303", "professor": "Reyna Arriaga Díaz", "blocks": [
+          { "day": 1, "start": "10:00", "end": "12:00", "room": "A13-13105" },
+          { "day": 3, "start": "10:00", "end": "12:00", "room": "A13-13105" } ] },
+        { "id": "1351", "professor": "Esteban Arriaga Estrada", "blocks": [
+          { "day": 0, "start": "18:00", "end": "19:00", "room": "A11-1103" },
+          { "day": 2, "start": "18:00", "end": "19:00", "room": "A11-1103" },
+          { "day": 4, "start": "17:00", "end": "19:00", "room": "A11-1103" } ] },
+        { "id": "1352", "professor": "Alicia Acevedo Soriano", "blocks": [
+          { "day": 0, "start": "18:00", "end": "19:00", "room": "A11-1101" },
+          { "day": 2, "start": "18:00", "end": "19:00", "room": "A11-1101" },
+          { "day": 4, "start": "18:00", "end": "20:00", "room": "A11-1101" } ] },
+        { "id": "1353", "blocks": [{ "day": 5, "start": "07:00", "end": "11:00", "room": "A14-14103" }] }
       ]
     },
     {
@@ -306,11 +155,8 @@
       "name": "Introducción al desarrollo sostenible",
       "credits": 0,
       "sections": [
-        {
-          "id": "1354",
-          "professor": "Denisse Ortiz López",
-          "blocks": [{ "day": 5, "start": "11:00", "end": "13:00", "room": "Aula virtual" }]
-        }
+        { "id": "1354", "professor": "Denisse Ortiz López", "blocks": [
+          { "day": 5, "start": "11:00", "end": "13:00", "room": "Aula virtual" } ] }
       ]
     }
   ]

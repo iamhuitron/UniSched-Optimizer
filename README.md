@@ -123,8 +123,10 @@ Esto es un punto de partida, no un producto terminado:
   el código está completo y sigue el formato documentado de la API, pero cada universidad
   nueva es, en la práctica, el primer caso de prueba real de su formato. Espera tener
   que ajustar el prompt en `extract.ts` la primera vez que le des un PDF de otra escuela.
-- El diseño es **funcional, no pulido** — sirve para probar la idea, no está pensado
-  todavía como landing page.
+- Ya tiene una pasada de diseño real (tipografía, tokens de espaciado/color, estados de
+  carga y error, drag-and-drop en la subida) en vez del gris genérico del primer borrador,
+  pero sigue siendo una interfaz de trabajo, no una landing page pensada para convertir
+  visitantes.
 - No hay manejo de cuentas ni de guardar horarios entre sesiones — cada visita empieza
   de cero. El modo manual tampoco tiene todavía forma de agregar un grupo que no venga
   en el PDF original (por ejemplo, si de verdad quieres construir desde cero como en

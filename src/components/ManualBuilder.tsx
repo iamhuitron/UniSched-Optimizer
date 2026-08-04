@@ -8,6 +8,10 @@ import styles from './ManualBuilder.module.css';
 
 const DAY_LABELS = ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'];
 
+function summarizeBlocks(section: { blocks: { day: number; start: string; end: string }[] }): string {
+  return section.blocks.map((b) => `${DAY_LABELS[b.day]} ${b.start}`).join(' · ');
+}
+
 export default function ManualBuilder({ subjects }: { subjects: Subject[] }) {
   const [picks, setPicks] = useState<Record<string, string>>({});
 
@@ -34,10 +38,17 @@ export default function ManualBuilder({ subjects }: { subjects: Subject[] }) {
 
   return (
     <div className={styles.wrap}>
+      <div className={styles.progress}>
+        {pickedCount} de {subjects.length} materias elegidas
+      </div>
+
       <div className={styles.pickers}>
         {subjects.map((subject) => (
           <div key={subject.code} className={styles.subjectRow}>
-            <span className={styles.subjectName}>{subject.name}</span>
+            <span className={styles.subjectName}>
+              {subject.name}
+              {picks[subject.code] && <span className={styles.pickedDot} aria-hidden="true" />}
+            </span>
             <div className={styles.chips}>
               {subject.sections.map((section) => (
                 <button
@@ -46,15 +57,9 @@ export default function ManualBuilder({ subjects }: { subjects: Subject[] }) {
                   className={styles.chip}
                   data-active={picks[subject.code] === section.id}
                   onClick={() => pickSection(subject.code, section.id)}
-                  title={
-                    section.professor
-                      ? `${section.professor} · ${section.blocks
-                          .map((b) => `${DAY_LABELS[b.day]} ${b.start}-${b.end}`)
-                          .join(', ')}`
-                      : section.blocks.map((b) => `${DAY_LABELS[b.day]} ${b.start}-${b.end}`).join(', ')
-                  }
                 >
-                  {section.id}
+                  <span className={styles.chipGroup}>{section.id}</span>
+                  <span className={styles.chipTimes}>{summarizeBlocks(section)}</span>
                 </button>
               ))}
             </div>
@@ -80,6 +85,9 @@ export default function ManualBuilder({ subjects }: { subjects: Subject[] }) {
                 ))}
               </ul>
             </div>
+          )}
+          {conflicts.length === 0 && pickedCount === subjects.length && (
+            <div className={styles.okBox}>Sin choques — este horario ya está completo y funciona.</div>
           )}
           <ScheduleGrid sections={chosen} />
         </>

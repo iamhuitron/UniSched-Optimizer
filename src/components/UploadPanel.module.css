@@ -1,8 +1,8 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 480px;
+  gap: var(--space-4);
+  width: 100%;
 }
 
 .dropzone {
@@ -11,13 +11,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 28px 16px;
+  gap: 6px;
+  padding: var(--space-6) var(--space-4);
   border: 1.5px dashed var(--border-2);
-  border-radius: 12px;
-  background: var(--panel);
+  border-radius: var(--radius-md);
+  background: var(--stripe);
   cursor: pointer;
   text-align: center;
+}
+
+.dropzone[data-dragover='true'] {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.dropzone[data-has-file='true'] {
+  border-style: solid;
+  border-color: var(--ok-text);
+  background: var(--ok-bg);
+}
+
+.icon {
+  color: var(--text-3);
+  margin-bottom: 2px;
+}
+
+.dropzone[data-has-file='true'] .icon {
+  color: var(--ok-text);
 }
 
 .fileInput {
@@ -29,13 +49,14 @@
 
 .dropzoneTitle {
   font-size: 13.5px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text);
 }
 
 .dropzoneSub {
   font-size: 11.5px;
   color: var(--text-3);
+  max-width: 320px;
 }
 
 .hintLabel {
@@ -44,33 +65,61 @@
   gap: 6px;
   font-size: 12.5px;
   color: var(--text-2);
+  width: 100%;
 }
 
 .hintInput {
   font: inherit;
   font-size: 13px;
   padding: 9px 11px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-2);
   background: var(--panel);
   color: var(--text);
 }
 
+.hintInput:focus-visible {
+  border-color: var(--accent);
+}
+
 .submit {
   font: inherit;
   font-size: 13.5px;
-  font-weight: 500;
-  padding: 10px 16px;
-  border-radius: 10px;
+  font-weight: 600;
+  padding: 11px 18px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--accent);
   background: var(--accent);
   color: #fff;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
 }
 
 .submit:disabled {
-  opacity: 0.6;
+  opacity: 0.65;
   cursor: default;
+}
+
+.spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: upload-spin 0.7s linear infinite;
+}
+
+@keyframes upload-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error {
@@ -78,6 +127,6 @@
   color: var(--warn-text);
   background: var(--warn-bg);
   padding: 9px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   margin: 0;
 }

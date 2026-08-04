@@ -9,6 +9,12 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
   const [hint, setHint] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+
+  function handleFile(f: File | null) {
+    setFile(f);
+    setError(null);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,15 +41,40 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label className={styles.dropzone}>
+      <label
+        className={styles.dropzone}
+        data-dragover={dragOver}
+        data-has-file={Boolean(file)}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragOver(false);
+          handleFile(e.dataTransfer.files?.[0] ?? null);
+        }}
+      >
         <input
           type="file"
           accept="application/pdf,image/png,image/jpeg,image/webp"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
           className={styles.fileInput}
         />
+        <svg className={styles.icon} width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 3v12m0-12 4 4m-4-4-4 4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         <span className={styles.dropzoneTitle}>{file ? file.name : 'Sube el PDF o la imagen de tu horario'}</span>
-        <span className={styles.dropzoneSub}>PDF, JPG, PNG o WEBP · máx. 15MB</span>
+        <span className={styles.dropzoneSub}>
+          {file ? 'Listo — puedes cambiarlo o continuar abajo' : 'Arrastra el archivo aquí, o haz clic · PDF, JPG, PNG o WEBP · máx. 15MB'}
+        </span>
       </label>
 
       <label className={styles.hintLabel}>
@@ -58,6 +89,7 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
       </label>
 
       <button type="submit" className={styles.submit} disabled={loading}>
+        {loading && <span className={styles.spinner} aria-hidden="true" />}
         {loading ? 'Leyendo el horario…' : 'Leer materias y horarios'}
       </button>
 

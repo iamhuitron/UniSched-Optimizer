@@ -38,8 +38,6 @@ describe('solve', () => {
   });
 
   it('returns no options when a hard filter makes every section of some subject infeasible', () => {
-    // every offered section of Informática III (302) has at least one block before 15:00,
-    // so "nothing before 15:00" makes 302 impossible to satisfy no matter which group is picked
     const options = solve(coreSubjects, { earliestStart: '15:00', maxResults: 50 });
     expect(options).toEqual([]);
   });
@@ -54,9 +52,6 @@ describe('solve', () => {
   });
 
   it('mixes sections from different groups when that is the only way to satisfy the constraints', () => {
-    // grupo 1351's own Informática III section requires Saturday, so with Saturday off,
-    // a fully-evening student is forced to borrow 302 from a morning group (1301/1302/1303) —
-    // this is exactly the "horario mixto" idea, discovered automatically rather than hand-built
     const options = solve(coreSubjects, { daysOff: [5], maxResults: 50 });
     const crossGroup = options.find((o) => new Set(o.sections.map((s) => s.section.id)).size > 1);
     expect(crossGroup).toBeDefined();
