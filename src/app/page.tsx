@@ -7,6 +7,7 @@ import UploadPanel from '@/components/UploadPanel';
 import PreferencesForm from '@/components/PreferencesForm';
 import ResultsList from '@/components/ResultsList';
 import ManualBuilder from '@/components/ManualBuilder';
+import CatalogBrowser from '@/components/CatalogBrowser';
 import styles from './page.module.css';
 
 type Mode = 'auto' | 'manual';
@@ -15,18 +16,6 @@ export default function Home() {
   const [dataset, setDataset] = useState<ScheduleDataset | null>(null);
   const [mode, setMode] = useState<Mode>('auto');
   const [options, setOptions] = useState<ScheduleOption[] | null>(null);
-  const [loadingDemo, setLoadingDemo] = useState(false);
-
-  async function loadDemo() {
-    setLoadingDemo(true);
-    try {
-      const res = await fetch('/fixtures/fes-cuautitlan-3er-semestre.json');
-      const data = (await res.json()) as ScheduleDataset;
-      setDataset(data);
-    } finally {
-      setLoadingDemo(false);
-    }
-  }
 
   function handlePrefs(prefs: Preferences) {
     if (!dataset) return;
@@ -55,15 +44,7 @@ export default function Home() {
       {!dataset && (
         <div className={styles.card}>
           <UploadPanel onExtracted={setDataset} />
-          <button type="button" className={styles.demoLink} onClick={loadDemo} disabled={loadingDemo}>
-            {loadingDemo ? (
-              <>
-                <span className={styles.spinner} aria-hidden="true" /> Cargando…
-              </>
-            ) : (
-              'O prueba con el ejemplo real de FES Cuautitlán →'
-            )}
-          </button>
+          <CatalogBrowser onSelect={setDataset} />
         </div>
       )}
 

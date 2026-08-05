@@ -138,7 +138,6 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
-.demoLink,
 .backLink {
   font: inherit;
   font-size: 12.5px;
@@ -154,29 +153,8 @@
   gap: 8px;
 }
 
-.demoLink:hover,
 .backLink:hover {
   color: var(--accent);
-}
-
-.demoLink:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.spinner {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid var(--border-2);
-  border-top-color: var(--accent);
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (max-width: 520px) {

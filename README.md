@@ -74,13 +74,16 @@ cp .env.example .env.local   # agrega tu ANTHROPIC_API_KEY (console.anthropic.co
 npm run dev
 ```
 
-Abre `http://localhost:3000`. Si no quieres configurar la API key todavía, hay un botón
-para probar ambos modos directo con el ejemplo real de FES Cuautitlán 3er semestre
-(`fixtures/fes-cuautitlan-3er-semestre.json`) sin subir nada.
+Abre `http://localhost:3000`. Si no quieres configurar la API key todavía, el botón
+"Explorar catálogo de universidades" tiene el ejemplo real de FES Cuautitlán 3er semestre
+(`fixtures/fes-cuautitlan-3er-semestre.json`) listo para probar ambos modos sin subir nada.
+El resto del catálogo (UNAM, IPN, UAM) está ahí como estructura — marcado "próximamente"
+hasta que alguien suba y verifique el PDF real de esa facultad. Ver
+["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo).
 
 ```bash
 npm run typecheck   # tsc --noEmit
-npm test             # vitest — solver + detección de choques, contra datos reales
+npm test             # vitest — solver, choques y catálogo, contra datos reales
 npm run build         # build de producción
 ```
 
@@ -95,30 +98,49 @@ src/
     solver.test.ts          pruebas contra datos reales de FES Cuautitlán
     conflicts.ts             detección de choques para el modo manual
     conflicts.test.ts         pruebas de la detección de choques
-    extract.ts                llamada a la API de Claude para leer el PDF/imagen
+    catalog.ts                 universidad → facultad → carrera con datasets verificados
+    catalog.test.ts              pruebas de integridad del catálogo (sin duplicados, sin rutas rotas)
+    extract.ts                    llamada a la API de Claude para leer el PDF/imagen
   app/
-    page.tsx               flujo: subir → elegir modo automático o manual → resultados
+    page.tsx               flujo: subir o elegir del catálogo → modo automático o manual → resultados
     api/extract/            endpoint que recibe el archivo y llama a extract.ts
   components/
     UploadPanel.tsx           subir PDF/imagen
-    PreferencesForm.tsx        materias, ventana de horario, días libres (modo automático)
-    ResultsList.tsx              pestañas entre las opciones rankeadas (modo automático)
-    ManualBuilder.tsx              elegir grupo por materia con un clic (modo manual)
-    ScheduleGrid.tsx                calendario visual compartido por ambos modos —
-                                      no sabe de qué universidad vienen los datos, y
-                                      marca en rojo cualquier choque que reciba
+    CatalogBrowser.tsx          explorar universidad → facultad → carrera y cargar un dataset ya verificado
+    PreferencesForm.tsx           materias, ventana de horario, días libres (modo automático)
+    ResultsList.tsx                  pestañas entre las opciones rankeadas (modo automático)
+    ManualBuilder.tsx                  elegir grupo por materia con un clic (modo manual)
+    ScheduleGrid.tsx                     calendario visual compartido por ambos modos —
+                                           no sabe de qué universidad vienen los datos, y
+                                           marca en rojo cualquier choque que reciba
 fixtures/
-  fes-cuautitlan-3er-semestre.json   dataset real de ejemplo — 7 materias, 32 secciones
+  fes-cuautitlan-3er-semestre.json   único dataset real verificado por ahora — 7 materias, 32 secciones
 ```
+
+## Cómo agregar una universidad al catálogo
+
+1. Consigue el PDF o imagen oficial de horarios de tu facultad/carrera.
+2. Súbelo en la app (modo automático o manual, cualquiera dispara la extracción) y revisa
+   con cuidado que lo que salió sea correcto — la extracción por IA puede equivocarse,
+   sobre todo en tablas con celdas fusionadas o grupos con renglones extra.
+3. Guarda el JSON resultante como `fixtures/<universidad>-<facultad>-<carrera>.json`
+   siguiendo la forma de `ScheduleDataset` en `src/lib/types.ts`, y cópialo también a
+   `public/fixtures/` para que el navegador pueda cargarlo.
+4. Agrega una entrada en `src/lib/catalog.ts`, dentro del `faculties` de la universidad
+   correspondiente (o crea la universidad si no está listada todavía).
+5. Antes de mandar el PR: revisa que tu facultad no tenga restricciones explícitas sobre
+   redistribuir su horario — esto todavía no está resuelto de forma general, ver la nota
+   en "Ideas para seguir".
 
 ## Estado actual — qué es MVP y qué falta
 
 Esto es un punto de partida, no un producto terminado:
 
-- El **motor de búsqueda y la detección de choques ya están probados en serio** (13
-  pruebas) contra un caso real de 5 grupos con materias que se repiten en dos aulas
-  distintas por semana (típico de las materias con laboratorio). Es la parte con más
-  valor agregado del proyecto y en la que más vale invertir si algo se rompe.
+- El **motor de búsqueda y la detección de choques ya están probados en serio** (19
+  pruebas, incluyendo integridad del catálogo) contra un caso real de 5 grupos con
+  materias que se repiten en dos aulas distintas por semana (típico de las materias con
+  laboratorio). Es la parte con más valor agregado del proyecto y en la que más vale
+  invertir si algo se rompe.
 - La **extracción por IA todavía no se probó de punta a punta con una API key real** —
   el código está completo y sigue el formato documentado de la API, pero cada universidad
   nueva es, en la práctica, el primer caso de prueba real de su formato. Espera tener
@@ -135,14 +157,14 @@ Esto es un punto de partida, no un producto terminado:
 
 ### Ideas para seguir
 
-- Un catálogo compartido tipo `catalogs/` con datasets ya extraídos y verificados por
-  escuela (empezando por el de FES Cuautitlán aquí incluido), para que la segunda persona
-  de la misma universidad no tenga que volver a gastar tokens de extracción — la versión
-  ligera, sin base de datos, de lo que armatushorarios.com hace con su catálogo curado.
-  Encajaría bien como una carpeta a la que la gente le mande PRs directamente en GitHub.
-  - **Nota importante:** antes de repartir cualquier catálogo así, hay que revisar los
-    términos de uso de la fuente original (muchas facultades publican sus horarios sin
-    licencia explícita) — este es un tema por resolver, no algo ya decidido.
+- El catálogo (`src/lib/catalog.ts` + el botón "Explorar catálogo") ya tiene la mecánica
+  completa — universidad → facultad → carrera, cargando un dataset verificado con un
+  clic. Lo que falta es contenido: por ahora solo FES Cuautitlán tiene un dataset real;
+  el resto de UNAM, IPN y UAM están listados a propósito como "próximamente" en vez de
+  con datos inventados. Ver ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo) arriba.
+  - **Nota importante, todavía sin resolver:** antes de aceptar un PR con el horario de
+    otra facultad, hay que revisar los términos de uso de la fuente original — muchas
+    publican sus horarios sin licencia explícita.
 - Permitir agregar/editar una sección a mano en el modo manual, para que sirva también
   sin haber subido ningún PDF.
   - Ligado a esto: dejar que el modo manual reciba subjects vacíos o parciales, no solo
