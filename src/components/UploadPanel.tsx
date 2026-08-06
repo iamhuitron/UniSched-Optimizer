@@ -4,16 +4,23 @@ import { useState } from 'react';
 import type { ScheduleDataset } from '@/lib/types';
 import styles from './UploadPanel.module.css';
 
+interface ExtractWarning {
+  page: number;
+  message: string;
+}
+
 export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: ScheduleDataset) => void }) {
   const [file, setFile] = useState<File | null>(null);
   const [hint, setHint] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [warnings, setWarnings] = useState<ExtractWarning[]>([]);
   const [dragOver, setDragOver] = useState(false);
 
   function handleFile(f: File | null) {
     setFile(f);
     setError(null);
+    setWarnings([]);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -24,6 +31,7 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
     }
     setLoading(true);
     setError(null);
+    setWarnings([]);
     try {
       const form = new FormData();
       form.append('file', file);
@@ -31,6 +39,7 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
       const res = await fetch('/api/extract', { method: 'POST', body: form });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'No se pudo leer el archivo.');
+      if (Array.isArray(data.warnings) && data.warnings.length > 0) setWarnings(data.warnings);
       onExtracted(data.dataset as ScheduleDataset);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error inesperado.');
@@ -78,11 +87,11 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
       </label>
 
       <label className={styles.hintLabel}>
-        Contexto opcional (universidad, facultad, semestre)
+        Nombre de la universidad/facultad (opcional, para etiquetar el resultado)
         <input
           type="text"
           className={styles.hintInput}
-          placeholder="ej. Facultad de Ingeniería, UANL, 4to semestre"
+          placeholder="ej. Facultad de Ingeniería, UANL"
           value={hint}
           onChange={(e) => setHint(e.target.value)}
         />
@@ -94,6 +103,16 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
       </button>
 
       {error && <p className={styles.error}>{error}</p>}
+      {warnings.length > 0 && (
+        <div className={styles.warnings}>
+          <strong>Revisa esto antes de continuar:</strong>
+          <ul>
+            {warnings.map((w, i) => (
+              <li key={i}>{w.message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }

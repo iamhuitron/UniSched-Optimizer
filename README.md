@@ -5,6 +5,9 @@ a qué hora quieres entrar, a qué hora salir, qué días quieres libres— y te
 mejores combinaciones de grupos posibles, sin choques. O si prefieres el control total,
 arma tu horario a mano, grupo por grupo, y te avisamos en vivo si algo se empalma.
 
+Todo corre local: la lectura del PDF/imagen no depende de ninguna API externa ni API key
+— nada de lo que subas sale de tu propia máquina o de tu propio servidor.
+
 Nació de armar a mano el horario de 3er semestre de Informática en FES Cuautitlán (UNAM):
 cruzar 7 materias contra 5 grupos distintos, cada uno con 2 o 3 sesiones a la semana,
 es exactamente el tipo de problema combinatorio que una computadora hace mejor que una
@@ -16,44 +19,51 @@ persona con una libreta.
   combinaciones y te regresa las mejores, rankeadas.
 - **Modo manual** — inspirado en [armatushorarios.com](https://armatushorarios.com/), un
   proyecto estudiantil independiente que ya resuelve esto para las carreras de Campo 1 de
-  FES Cuautitlán (mi misma escuela, Campo 4). Ese sitio apunta a mantener un catálogo
-  curado a mano por carrera —"actualmente con las carreras de Campo 1"— en vez de que
-  cada quien suba su propio PDF; el patrón de interacción que le tomé prestado es el más
-  fuerte de esa categoría de herramientas: tú eliges el grupo de cada materia con un clic
-  y el calendario se arma solo, marcando en rojo cualquier choque al instante. Aquí ese
-  modo manual convive con el automático como alternativa cuando quieres control total
-  —por ejemplo, para no soltar a un profesor específico aunque el horario no sea el más
-  compacto— y con la ventaja de que, al venir de la misma base de datos normalizada,
-  funciona para cualquier universidad que hayas subido, no solo para un catálogo que
-  alguien más mantiene a mano.
+  FES Cuautitlán (mi misma escuela, Campo 4). Tú eliges el grupo de cada materia con un
+  clic y el calendario se arma solo, marcando en rojo cualquier choque al instante.
 
-## Cómo está pensado
+## Cómo lee el horario sin depender de una API de IA
 
-El proyecto separa los dos problemas duros que tiene "arma mi horario" para que cada uno
-se pueda mejorar sin tocar el otro:
+El PDF/imagen que publica cada universidad viene en un formato distinto: celdas
+fusionadas, renglones extra para el grupo de laboratorio ("1301" + "1301A"), columnas en
+otro orden. Sin un modelo que "entienda" la tabla, la única opción realista es
+reconstruirla geométricamente:
 
-1. **Leer el horario** (`src/lib/extract.ts`) — el PDF/imagen que publica cada universidad
-   viene en un formato distinto: celdas fusionadas, renglones extra para el grupo de
-   laboratorio ("1301" + "1301A"), columnas en otro orden, etc. En vez de escribir un
-   parser de tablas a la medida de cada escuela, esto se lo pasa directo a la API de
-   Claude (que lee imágenes y PDFs de forma nativa) con instrucciones claras de a qué
-   esquema normalizar el resultado. Es el pedazo que hace que la misma herramienta sirva
-   para otra universidad sin escribir código nuevo — solo depende de qué tan clara sea
-   la tabla original.
+1. **`src/lib/local-parse/pdf.ts`** — si es un PDF con texto real (la gran mayoría de los
+   horarios que publican las universidades, generados desde Word/Excel), usa
+   [`pdfjs-dist`](https://mozilla.github.io/pdf.js/) para leer cada fragmento de texto
+   junto con su posición exacta en la página. Nada de OCR: esto es lectura directa y
+   precisa del texto que ya está en el archivo.
+2. **`src/lib/local-parse/image.ts`** — si es una foto o un PDF escaneado sin texto real,
+   usa [`tesseract.js`](https://github.com/naptha/tesseract.js) (OCR, corre 100% local vía
+   WebAssembly) para reconocer cada palabra y su posición. Es el mismo tipo de archivo que
+   yo mismo subí originalmente para este proyecto.
+3. **`src/lib/local-parse/table-to-dataset.ts`** — el corazón del asunto: agrupa ese texto
+   posicionado en renglones por cercanía vertical, encuentra el renglón de encabezados
+   (Clave/Asignatura/Cr/Grupo/Aula/Profesor/Lunes...Sábado) para anclar las columnas por
+   posición horizontal, y de ahí arma cada materia/sección/horario. Ambos extractores
+   (PDF y OCR) alimentan esta misma función, así que solo hay una lógica de
+   reconstrucción de tabla que mantener y probar.
 
-2. **Armar el horario** (`src/lib/solver.ts` + `src/lib/conflicts.ts`) — una vez que los
-   datos están en el esquema normalizado (`src/lib/types.ts`), esto ya no sabe ni le
-   importa de qué universidad vinieron.
-   - `solver.ts` es una búsqueda con backtracking para el modo automático: prueba una
-     sección por materia, descarta de inmediato cualquier combinación con choque o que se
-     salga de la ventana de horario pedida, y al final rankea lo que sí cumple por qué
-     tan compacto es (menos huecos, menos días distintos en la escuela).
-   - `conflicts.ts` es la misma lógica de choques, expuesta para el modo manual: en vez
-     de descartar combinaciones, le dice a la interfaz exactamente cuáles dos materias
-     chocan, qué día y en qué horas, para marcarlo en el calendario en tiempo real.
+**Esto es un trade-off real, no una mejora gratis.** Sin un modelo de por medio, cualquier
+documento que no siga razonablemente ese layout va a leerse mal o nada. Construyendo esto
+encontré dos fallas concretas con pruebas de extremo a extremo (no solo pruebas
+unitarias con datos sintéticos perfectos):
 
-Ese esquema intermedio es la pieza que importa: cualquier universidad, una vez
-normalizada a él, funciona con ambos modos.
+- Cuando dos celdas visualmente adyacentes no tienen suficiente espacio en blanco entre
+  ellas, tanto `pdfjs-dist` como el OCR a veces las reportan como **un solo fragmento de
+  texto fusionado** — un nombre de profesor largo puede fusionarse con el horario del
+  lunes de al lado. `table-to-dataset.ts` detecta un horario "HH:MM-HH:MM" incrustado a
+  la mitad de un fragmento y lo separa antes de asignarlo a su columna.
+- Ese mismo problema puede pasarle al propio renglón de encabezados ("Miércoles" +
+  "Jueves" fusionados en un solo fragmento) — mucho peor, porque entonces ninguna de las
+  dos columnas queda anclada, y los datos de ambos días terminan asignados por accidente
+  a la columna vecina más cercana. Ver los tests con comentario "(regression)" en
+  `table-to-dataset.test.ts` para el caso exacto.
+
+Ninguno de los dos es un problema resuelto de forma perfecta y general — son mitigaciones
+concretas a fallas que sí ocurrieron probando con datos reales, documentadas donde están
+por si hace falta seguir ajustándolas con el siguiente documento que falle.
 
 ## Qué tan "óptimo" es (modo automático)
 
@@ -70,20 +80,20 @@ normalizada a él, funciona con ambos modos.
 
 ```bash
 npm install
-cp .env.example .env.local   # agrega tu ANTHROPIC_API_KEY (console.anthropic.com)
 npm run dev
 ```
 
-Abre `http://localhost:3000`. Si no quieres configurar la API key todavía, el botón
-"Explorar catálogo de universidades" tiene el ejemplo real de FES Cuautitlán 3er semestre
-(`fixtures/fes-cuautitlan-3er-semestre.json`) listo para probar ambos modos sin subir nada.
-El resto del catálogo (UNAM, IPN, UAM) está ahí como estructura — marcado "próximamente"
-hasta que alguien suba y verifique el PDF real de esa facultad. Ver
-["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo).
+Abre `http://localhost:3000`. No hace falta ninguna variable de entorno ni API key — todo
+corre local. El botón "Explorar catálogo de universidades" tiene el ejemplo real de FES
+Cuautitlán 3er semestre (`fixtures/fes-cuautitlan-3er-semestre.json`) listo para probar
+ambos modos sin subir nada. El resto del catálogo (UNAM, IPN, UAM) está ahí como
+estructura — marcado "próximamente" hasta que alguien suba y verifique el PDF real de esa
+facultad. Ver ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo).
 
 ```bash
 npm run typecheck   # tsc --noEmit
-npm test             # vitest — solver, choques y catálogo, contra datos reales
+npm test             # vitest — incluye extracción real de un PDF y una imagen generados
+                      # en la prueba (sin red, sin API): 30 pruebas en total
 npm run build         # build de producción
 ```
 
@@ -92,20 +102,30 @@ npm run build         # build de producción
 ```
 src/
   lib/
-    types.ts            esquema normalizado (Subject, Section, TimeBlock, Preferences...)
-    time.ts               utilidades de tiempo (choques, huecos, formato)
-    solver.ts              motor de búsqueda para el modo automático
-    solver.test.ts          pruebas contra datos reales de FES Cuautitlán
-    conflicts.ts             detección de choques para el modo manual
-    conflicts.test.ts         pruebas de la detección de choques
-    catalog.ts                 universidad → facultad → carrera con datasets verificados
-    catalog.test.ts              pruebas de integridad del catálogo (sin duplicados, sin rutas rotas)
-    extract.ts                    llamada a la API de Claude para leer el PDF/imagen
+    types.ts                    esquema normalizado (Subject, Section, TimeBlock, Preferences...)
+    time.ts                       utilidades de tiempo (choques, huecos, formato)
+    solver.ts                      motor de búsqueda para el modo automático
+    solver.test.ts                  pruebas contra datos reales de FES Cuautitlán
+    conflicts.ts                     detección de choques para el modo manual
+    conflicts.test.ts                 pruebas de la detección de choques
+    catalog.ts                         universidad → facultad → carrera con datasets verificados
+    catalog.test.ts                     pruebas de integridad del catálogo
+    local-parse/
+      types.ts                           PositionedItem — el formato común entre PDF y OCR
+      pdf.ts                               extracción de texto real vía pdfjs-dist
+      image.ts                              OCR vía tesseract.js (100% local, sin red)
+      table-to-dataset.ts                    reconstrucción geométrica de la tabla — el
+                                               corazón del parser, ver sección de arriba
+      table-to-dataset.test.ts                 pruebas con datos sintéticos, incluyendo
+                                                 las dos fallas reales documentadas arriba
+      pdf.test.ts, image.test.ts                extremo a extremo real: genera un PDF/imagen
+                                                   de prueba y corre la extracción completa
+      index.ts                                   junta pdf.ts/image.ts + table-to-dataset.ts
   app/
     page.tsx               flujo: subir o elegir del catálogo → modo automático o manual → resultados
-    api/extract/            endpoint que recibe el archivo y llama a extract.ts
+    api/extract/            endpoint que recibe el archivo y llama a local-parse/index.ts
   components/
-    UploadPanel.tsx           subir PDF/imagen
+    UploadPanel.tsx           subir PDF/imagen, con drag-and-drop
     CatalogBrowser.tsx          explorar universidad → facultad → carrera y cargar un dataset ya verificado
     PreferencesForm.tsx           materias, ventana de horario, días libres (modo automático)
     ResultsList.tsx                  pestañas entre las opciones rankeadas (modo automático)
@@ -121,8 +141,9 @@ fixtures/
 
 1. Consigue el PDF o imagen oficial de horarios de tu facultad/carrera.
 2. Súbelo en la app (modo automático o manual, cualquiera dispara la extracción) y revisa
-   con cuidado que lo que salió sea correcto — la extracción por IA puede equivocarse,
-   sobre todo en tablas con celdas fusionadas o grupos con renglones extra.
+   con cuidado que lo que salió sea correcto contra el documento original — la
+   reconstrucción geométrica puede equivocarse, sobre todo en tablas con celdas
+   fusionadas, columnas en otro orden, o fotos de baja calidad.
 3. Guarda el JSON resultante como `fixtures/<universidad>-<facultad>-<carrera>.json`
    siguiendo la forma de `ScheduleDataset` en `src/lib/types.ts`, y cópialo también a
    `public/fixtures/` para que el navegador pueda cargarlo.
@@ -136,15 +157,21 @@ fixtures/
 
 Esto es un punto de partida, no un producto terminado:
 
-- El **motor de búsqueda y la detección de choques ya están probados en serio** (19
-  pruebas, incluyendo integridad del catálogo) contra un caso real de 5 grupos con
-  materias que se repiten en dos aulas distintas por semana (típico de las materias con
-  laboratorio). Es la parte con más valor agregado del proyecto y en la que más vale
-  invertir si algo se rompe.
-- La **extracción por IA todavía no se probó de punta a punta con una API key real** —
-  el código está completo y sigue el formato documentado de la API, pero cada universidad
-  nueva es, en la práctica, el primer caso de prueba real de su formato. Espera tener
-  que ajustar el prompt en `extract.ts` la primera vez que le des un PDF de otra escuela.
+- El **motor de búsqueda, la detección de choques y el parser local ya están probados en
+  serio** (30 pruebas). Las de `local-parse/` corren extracción real de extremo a extremo
+  — un PDF de verdad generado en la prueba, una imagen de verdad pasada por OCR de
+  verdad, no solo aserciones sobre datos ya estructurados — y ahí fue donde salieron los
+  dos bugs reales documentados arriba.
+- El parser está **calibrado contra un layout específico** (el de FES Cuautitlán, que es
+  representativo de cómo la mayoría de las universidades mexicanas publican sus
+  horarios). Una tabla con columnas en otro orden, sin encabezados claros, o con un
+  layout muy distinto probablemente necesite ajustar `HEADER_ALIASES` o la heurística de
+  columnas en `table-to-dataset.ts` — esto es exactamente el tipo de ajuste que vale la
+  pena documentar como test cuando aparezca.
+- El modo OCR es notablemente menos preciso que el de PDF con texto real — es inherente a
+  cómo funciona el reconocimiento óptico, no algo que se resuelva solo con más tiempo en
+  el prompt (ya no hay prompt). Para una foto de mala calidad, espera tener que corregir
+  nombres de profesores u horarios a mano después.
 - Ya tiene una pasada de diseño real (tipografía, tokens de espaciado/color, estados de
   carga y error, drag-and-drop en la subida) en vez del gris genérico del primer borrador,
   pero sigue siendo una interfaz de trabajo, no una landing page pensada para convertir
@@ -165,19 +192,22 @@ Esto es un punto de partida, no un producto terminado:
   - **Nota importante, todavía sin resolver:** antes de aceptar un PR con el horario de
     otra facultad, hay que revisar los términos de uso de la fuente original — muchas
     publican sus horarios sin licencia explícita.
+- Mejorar la heurística de reconstrucción de tabla conforme aparezcan más formatos reales
+  — cada universidad nueva que falle es, en la práctica, el siguiente caso de prueba.
+  Un layout con las materias en filas pero los grupos en columnas (en vez de al revés,
+  como aquí), por ejemplo, todavía no está cubierto.
 - Permitir agregar/editar una sección a mano en el modo manual, para que sirva también
   sin haber subido ningún PDF.
   - Ligado a esto: dejar que el modo manual reciba subjects vacíos o parciales, no solo
     los que ya vinieron de un dataset extraído.
 - Preferencia por profesor específico en el modo automático, o por evitar bloques
   mayores a cierta duración.
-- Caché de extracción por hash del archivo, para no volver a gastar tokens si dos
-  personas de la misma escuela suben el mismo PDF.
 - Exportar el resultado a imagen/PDF o a un archivo `.ics` para importarlo al calendario.
 - Guardar el progreso del modo manual (hoy se pierde si recargas la página).
 
 ## Stack
 
-Next.js 15 (App Router) + TypeScript + React 19. Sin base de datos ni backend aparte:
-el único servicio externo es la API de Claude, y solo se usa en el paso de lectura del
-archivo — el resto corre en el navegador.
+Next.js 15 (App Router) + TypeScript + React 19. Sin base de datos ni servicio externo de
+ningún tipo: la lectura de PDF/imagen (`pdfjs-dist` + `tesseract.js`) corre en el propio
+servidor de Next.js, y el resto —el buscador de horarios y la detección de choques—
+corre directo en el navegador.

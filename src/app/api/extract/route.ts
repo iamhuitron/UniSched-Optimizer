@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { extractScheduleFromDocument } from '@/lib/extract';
+import { extractScheduleLocally } from '@/lib/local-parse';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -33,12 +33,26 @@ export async function POST(request: Request) {
 
   try {
     const buffer = Buffer.from(await file.arrayBuffer());
-    const dataset = await extractScheduleFromDocument(buffer, file.type, {
-      hint: typeof hint === 'string' && hint.trim() ? hint.trim() : undefined,
+    const institutionHint = typeof hint === 'string' && hint.trim() ? hint.trim() : undefined;
+    const { dataset, warnings } = await extractScheduleLocally(buffer, file.type, {
+      institution: institutionHint,
     });
-    return NextResponse.json({ dataset: { ...dataset, sourceFile: file.name } });
+
+    if (dataset.subjects.length === 0) {
+      return NextResponse.json(
+        {
+          error:
+            'No se pudo reconstruir ninguna materia de este archivo. Revisa que sea una tabla con columnas Clave/Asignatura/Grupo/Lunes...Sábado, o inténtalo con una imagen más clara.',
+          warnings,
+        },
+        { status: 422 }
+      );
+    }
+
+    return NextResponse.json({ dataset: { ...dataset, sourceFile: file.name }, warnings });
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Error desconocido al extraer el horario.';
-    return NextResponse.json({ error: message }, { status: 502 });
+    console.error('extract route error:', err);
+    const message = err instanceof Error ? err.message : 'Error desconocido al leer el horario.';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

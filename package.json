@@ -1,8 +1,8 @@
 {
   "name": "horario-optimo",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
-  "description": "Sube el PDF de horarios de tu universidad, dile tus restricciones, y obtén las mejores combinaciones de grupos sin choques. O arma el tuyo a mano.",
+  "description": "Sube el horario de tu universidad y se lee 100% local (PDF real o OCR, sin API keys ni servicios externos). Dile tus restricciones y obt\u00e9n las mejores combinaciones de grupos sin choques, o arma el tuyo a mano.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,15 +12,18 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.68.0",
+    "@tesseract.js-data/spa": "^1.0.0",
     "next": "^15.5.0",
+    "pdfjs-dist": "^6.2.108",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "pdf-lib": "^1.17.1",
     "typescript": "^5.7.0",
     "vitest": "^3.2.0"
   },
