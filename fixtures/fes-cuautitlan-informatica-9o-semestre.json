@@ -1,0 +1,106 @@
+{
+  "institution": "UNAM FES Cuautitlán — Campo 4",
+  "program": "Licenciatura en Informática (Plan 2003)",
+  "term": "9no semestre",
+  "sourceFile": "info_n.pdf (masam.cuautitlan.unam.mx/horarios), semestre 2027-1",
+  "extractedAt": "2026-08-06",
+  "subjects": [
+    {
+      "code": "900",
+      "name": "Administración pública y política informática",
+      "credits": 6,
+      "sections": [
+        {
+          "id": "1901",
+          "professor": "Elizabeth Carolina Cortes Rios",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A11-1101"
+            },
+            {
+              "day": 3,
+              "start": "07:00",
+              "end": "08:00",
+              "room": "A11-1101"
+            }
+          ]
+        },
+        {
+          "id": "1902",
+          "professor": "Miriam Talia Lopez Diaz",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A14-14105"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "08:00",
+              "room": "A14-14105"
+            }
+          ]
+        },
+        {
+          "id": "1903",
+          "professor": "Juan Silva Hernandez",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "08:00",
+              "room": "A11-1101"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A13-13105"
+            }
+          ]
+        },
+        {
+          "id": "1951",
+          "professor": "Gabriela Sarahi Vargas Lopez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "17:00",
+              "end": "18:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 3,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A13-13105"
+            }
+          ]
+        },
+        {
+          "id": "1952",
+          "professor": "Aida Aguilar Reyes",
+          "blocks": [
+            {
+              "day": 3,
+              "start": "17:00",
+              "end": "18:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 4,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14101"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

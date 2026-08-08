@@ -1,20 +1,36 @@
 'use client';
 
 import { useState } from 'react';
-import { CATALOG } from '@/lib/catalog';
+import { CATALOG, type CatalogEntry } from '@/lib/catalog';
 import type { ScheduleDataset } from '@/lib/types';
 import styles from './CatalogBrowser.module.css';
+
+/** groups entries by career so "Informática" shows its 6 semester buttons
+ *  together instead of as 6 separate unrelated-looking rows */
+function groupByCareer(entries: CatalogEntry[]): { careerName: string; entries: CatalogEntry[] }[] {
+  const order: string[] = [];
+  const byCareer = new Map<string, CatalogEntry[]>();
+  for (const entry of entries) {
+    if (!byCareer.has(entry.careerName)) {
+      byCareer.set(entry.careerName, []);
+      order.push(entry.careerName);
+    }
+    byCareer.get(entry.careerName)!.push(entry);
+  }
+  return order.map((careerName) => ({ careerName, entries: byCareer.get(careerName)! }));
+}
 
 export default function CatalogBrowser({ onSelect }: { onSelect: (dataset: ScheduleDataset) => void }) {
   const [open, setOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function loadEntry(id: string, path: string) {
-    setLoadingId(id);
+  async function loadEntry(entry: CatalogEntry) {
+    if (!entry.datasetPath) return;
+    setLoadingId(entry.id);
     setError(null);
     try {
-      const res = await fetch(path);
+      const res = await fetch(entry.datasetPath);
       if (!res.ok) throw new Error('No se pudo cargar ese catálogo.');
       const data = (await res.json()) as ScheduleDataset;
       onSelect(data);
@@ -42,23 +58,38 @@ export default function CatalogBrowser({ onSelect }: { onSelect: (dataset: Sched
               <div className={styles.faculties}>
                 {uni.faculties.map((fac) => (
                   <div key={fac.id} className={styles.faculty}>
-                    <span className={styles.facultyName}>{fac.name}</span>
-                    {fac.entries.length === 0 ? (
-                      <span className={styles.soon}>Próximamente</span>
-                    ) : (
-                      <div className={styles.entries}>
-                        {fac.entries.map((entry) => (
-                          <button
-                            key={entry.id}
-                            type="button"
-                            className={styles.entryBtn}
-                            disabled={loadingId === entry.id}
-                            onClick={() => loadEntry(entry.id, entry.datasetPath)}
-                          >
-                            {loadingId === entry.id ? 'Cargando…' : entry.careerName}
-                            <span>{entry.detail}</span>
-                          </button>
-                        ))}
+                    <div className={styles.facultyHead}>
+                      <span className={styles.facultyName}>{fac.name}</span>
+                      {fac.entries.length === 0 && <span className={styles.soon}>Próximamente</span>}
+                    </div>
+
+                    {fac.entries.length > 0 && (
+                      <div className={styles.careers}>
+                        {groupByCareer(fac.entries).map((group) => {
+                          const available = group.entries.filter((e) => e.datasetPath);
+                          return (
+                            <div key={group.careerName} className={styles.careerRow}>
+                              <span className={styles.careerName}>{group.careerName}</span>
+                              {available.length === 0 ? (
+                                <span className={styles.soon}>Próximamente</span>
+                              ) : (
+                                <div className={styles.entries}>
+                                  {available.map((entry) => (
+                                    <button
+                                      key={entry.id}
+                                      type="button"
+                                      className={styles.entryBtn}
+                                      disabled={loadingId === entry.id}
+                                      onClick={() => loadEntry(entry)}
+                                    >
+                                      {loadingId === entry.id ? 'Cargando…' : entry.detail || entry.careerName}
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

@@ -1,0 +1,28 @@
+{
+  "institution": "UNAM FES Cuautitlán — Campo 4",
+  "program": "Licenciatura en Informática (Plan 2003)",
+  "term": "4to semestre",
+  "sourceFile": "info_n.pdf (masam.cuautitlan.unam.mx/horarios), semestre 2027-1",
+  "extractedAt": "2026-08-06",
+  "subjects": [
+    {
+      "code": "405",
+      "name": "Matemáticas IV. Matemáticas computacionales",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1401",
+          "professor": "Antonio Gama Campillo",
+          "blocks": [
+            {
+              "day": 5,
+              "start": "09:00",
+              "end": "13:00",
+              "room": "A14-14101"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

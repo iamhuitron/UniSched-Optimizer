@@ -1,0 +1,796 @@
+{
+  "institution": "UNAM FES Cuautitlán — Campo 4",
+  "program": "Licenciatura en Informática (Plan 2003)",
+  "term": "1er semestre",
+  "sourceFile": "info_n.pdf (masam.cuautitlan.unam.mx/horarios), semestre 2027-1",
+  "extractedAt": "2026-08-06",
+  "subjects": [
+    {
+      "code": "100",
+      "name": "Administración I. Proceso administrativo",
+      "credits": 6,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Julio Cesar Gutierrez Pelaez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "11:30",
+              "end": "13:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 3,
+              "start": "11:30",
+              "end": "13:00",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Jose Manuel Herrera Arellano",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "11:30",
+              "end": "13:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "11:30",
+              "end": "13:00",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Juan Silva Hernandez",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Omar Gaddiel Perez Alvarado",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "19:30",
+              "end": "21:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "19:30",
+              "end": "21:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Martin Montiel Badillo",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "19:30",
+              "end": "21:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "19:30",
+              "end": "21:00",
+              "room": "A14-14102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "101",
+      "name": "Comunicación oral y escrita",
+      "credits": 6,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Eduardo Garcia Gameros",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14104"
+            },
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Juan Angel Flores Rivera",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Estela Oliver Hernandez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Diana Freyre Ochoa",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Jose Cruz Gervacio",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "102",
+      "name": "Informática I. Introducción a la informática",
+      "credits": 12,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Liana Lopez Pacheco",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "11:30",
+              "end": "13:30",
+              "room": "A14-14104"
+            },
+            {
+              "day": 2,
+              "start": "12:00",
+              "end": "14:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 4,
+              "start": "12:30",
+              "end": "14:30",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Oscar Hernandez Sanchez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "11:30",
+              "end": "13:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "12:00",
+              "end": "14:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 4,
+              "start": "12:30",
+              "end": "14:30",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Victor Enrique Gonzalez Vargas",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "10:30",
+              "end": "13:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Javier Garcia",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "19:30",
+              "end": "21:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "19:30",
+              "end": "21:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "19:00",
+              "end": "21:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Armando Carmona Bonilla",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "19:30",
+              "end": "21:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "19:30",
+              "end": "21:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 4,
+              "start": "19:00",
+              "end": "21:00",
+              "room": "A14-14102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "104",
+      "name": "Taller de componentes de hardware",
+      "credits": 3,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Oscar Hernandez Sanchez",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14112"
+            },
+            {
+              "day": 4,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Mauricio Jaques Soto",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14113"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Oscar Hernandez Sanchez",
+          "blocks": [
+            {
+              "day": 3,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A14-14113"
+            },
+            {
+              "day": 1,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Oscar Vilchis Guerra",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "14:30",
+              "end": "16:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "14:30",
+              "end": "16:00",
+              "room": "A14-14113"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Adriana Yañez Hernandez",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "14:30",
+              "end": "16:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 1,
+              "start": "14:30",
+              "end": "16:00",
+              "room": "A14-14113"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "105",
+      "name": "Análisis y diseño de algoritmos",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Gilta Pixan Dalai Casco Urrutia",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 3,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Elvia Sanchez Magadan",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Clarisa Clemente Rodriguez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "11:30",
+              "end": "13:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "11:30",
+              "end": "13:30",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": null,
+          "blocks": [
+            {
+              "day": 1,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 3,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Javier Garcia",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "106",
+      "name": "Matemáticas I. Matemáticas básicas",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Erwin Hugo Cruz Hernandez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 2,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 4,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14104"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Vladislav Khartchenko",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 4,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": null,
+          "blocks": [
+            {
+              "day": 2,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "10:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "07:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "07:30",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Guadalupe Hernandez Gutierrez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "16:00",
+              "end": "17:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Adrian Nonato Torres",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 3,
+              "start": "15:00",
+              "end": "18:00",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1153",
+          "professor": "Adrian Nonato Torres",
+          "blocks": [
+            {
+              "day": 5,
+              "start": "09:00",
+              "end": "14:00",
+              "room": "A14-14102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "107",
+      "name": "Programación I. Introducción a la programación y ambientes integrados",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1101",
+          "professor": "Mauricio Jaques Soto",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14104"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A14-14104"
+            },
+            {
+              "day": 4,
+              "start": "10:30",
+              "end": "12:30",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "professor": "Clarisa Clemente Rodriguez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 4,
+              "start": "10:30",
+              "end": "12:30",
+              "room": "A14-14113"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "professor": "Erika Gabriela Esquivel Gomez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "13:00",
+              "end": "14:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "12:30",
+              "end": "14:30",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1151",
+          "professor": "Jose Alberto Gomez Escojido",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 2,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14101"
+            },
+            {
+              "day": 4,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1152",
+          "professor": "Mauricio Jaques Soto",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 2,
+              "start": "18:00",
+              "end": "19:30",
+              "room": "A14-14102"
+            },
+            {
+              "day": 4,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14113"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -93,7 +93,7 @@ facultad. Ver ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-
 ```bash
 npm run typecheck   # tsc --noEmit
 npm test             # vitest — incluye extracción real de un PDF y una imagen generados
-                      # en la prueba (sin red, sin API): 30 pruebas en total
+                      # en la prueba (sin red, sin API): 31 pruebas en total
 npm run build         # build de producción
 ```
 
@@ -134,22 +134,51 @@ src/
                                            no sabe de qué universidad vienen los datos, y
                                            marca en rojo cualquier choque que reciba
 fixtures/
-  fes-cuautitlan-3er-semestre.json   único dataset real verificado por ahora — 7 materias, 32 secciones
+  fes-cuautitlan-3er-semestre.json                dataset real — Informática, 3er semestre
+  fes-cuautitlan-informatica-1er-semestre.json      dataset real — 1er semestre
+  fes-cuautitlan-informatica-4o-semestre.json        dataset real — 4to semestre
+  fes-cuautitlan-informatica-5o-semestre.json         dataset real — 5to semestre
+  fes-cuautitlan-informatica-7o-semestre.json          dataset real — 7mo semestre
+  fes-cuautitlan-informatica-9o-semestre.json           dataset real — 9no semestre
 ```
+
+Los seis salieron de la fuente oficial: FES Cuautitlán publica los horarios de sus 17
+carreras en `masam.cuautitlan.unam.mx/horarios/`, mismo formato de tabla que ya soporta
+el parser. Los de 1er/4to/5to/7mo/9no semestre se armaron con un script de una sola vez
+(regex sobre el texto ya extraído del PDF oficial, no manualmente materia por materia) y
+se verificaron cruzando varias filas contra la fuente y contra el semestre 3° —que ya
+estaba armado a mano desde antes— para confirmar que coincidían exactamente. El resto de
+las 16 carreras de FES Cuautitlán (Química, Contaduría, Ingeniería Industrial, etc.) están
+en el mismo portal, con el mismo formato, listas para que alguien repita el proceso.
 
 ## Cómo agregar una universidad al catálogo
 
-1. Consigue el PDF o imagen oficial de horarios de tu facultad/carrera.
-2. Súbelo en la app (modo automático o manual, cualquiera dispara la extracción) y revisa
+**Antes que nada, busca un portal oficial en vez de partir de una sola foto.** El salto
+más grande que dio este catálogo no vino de subir PDFs uno por uno, sino de encontrar que
+FES Cuautitlán publica los horarios de sus 17 carreras completas en un solo portal
+(`masam.cuautitlan.unam.mx/horarios/`) — una búsqueda de "[tu universidad] horarios
+coordinación pdf [semestre actual]" frecuentemente encuentra algo parecido: una página de
+"coordinación de la licenciatura en X" con un PDF por carrera, actualizado cada semestre.
+Encontrar eso primero convierte "agregar una carrera" en "agregar 15", porque el mismo
+formato de tabla suele repetirse entre todas las carreras de una misma facultad.
+
+Con el PDF/imagen en mano:
+
+1. Súbelo en la app (modo automático o manual, cualquiera dispara la extracción) y revisa
    con cuidado que lo que salió sea correcto contra el documento original — la
    reconstrucción geométrica puede equivocarse, sobre todo en tablas con celdas
-   fusionadas, columnas en otro orden, o fotos de baja calidad.
-3. Guarda el JSON resultante como `fixtures/<universidad>-<facultad>-<carrera>.json`
+   fusionadas, columnas en otro orden, o fotos de baja calidad. Para un portal con muchos
+   PDFs del mismo formato, vale la pena escribir un script una sola vez (como se hizo para
+   los semestres 1°/4°/5°/7°/9° de Informática: un regex sobre el texto ya extraído,
+   verificado cruzando filas contra la fuente) en vez de subir cada uno a mano.
+2. Guarda el JSON resultante como `fixtures/<universidad>-<facultad>-<carrera>.json`
    siguiendo la forma de `ScheduleDataset` en `src/lib/types.ts`, y cópialo también a
    `public/fixtures/` para que el navegador pueda cargarlo.
-4. Agrega una entrada en `src/lib/catalog.ts`, dentro del `faculties` de la universidad
-   correspondiente (o crea la universidad si no está listada todavía).
-5. Antes de mandar el PR: revisa que tu facultad no tenga restricciones explícitas sobre
+3. Agrega una entrada en `src/lib/catalog.ts`, dentro del `faculties` de la universidad
+   correspondiente (o crea la universidad si no está listada todavía). Si ya existe una
+   entrada para esa carrera sin `datasetPath` (aparece como "Próximamente"), solo agrégale
+   el campo — no hace falta borrar nada.
+4. Antes de mandar el PR: revisa que tu facultad no tenga restricciones explícitas sobre
    redistribuir su horario — esto todavía no está resuelto de forma general, ver la nota
    en "Ideas para seguir".
 
@@ -158,7 +187,7 @@ fixtures/
 Esto es un punto de partida, no un producto terminado:
 
 - El **motor de búsqueda, la detección de choques y el parser local ya están probados en
-  serio** (30 pruebas). Las de `local-parse/` corren extracción real de extremo a extremo
+  serio** (31 pruebas). Las de `local-parse/` corren extracción real de extremo a extremo
   — un PDF de verdad generado en la prueba, una imagen de verdad pasada por OCR de
   verdad, no solo aserciones sobre datos ya estructurados — y ahí fue donde salieron los
   dos bugs reales documentados arriba.
@@ -185,10 +214,12 @@ Esto es un punto de partida, no un producto terminado:
 ### Ideas para seguir
 
 - El catálogo (`src/lib/catalog.ts` + el botón "Explorar catálogo") ya tiene la mecánica
-  completa — universidad → facultad → carrera, cargando un dataset verificado con un
-  clic. Lo que falta es contenido: por ahora solo FES Cuautitlán tiene un dataset real;
-  el resto de UNAM, IPN y UAM están listados a propósito como "próximamente" en vez de
-  con datos inventados. Ver ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo) arriba.
+  completa y ahora también contenido real: 6 semestres de Informática en FES Cuautitlán,
+  con las otras 16 carreras de esa misma facultad listadas por nombre real y ya
+  encontrado su portal oficial — falta repetir el proceso de extracción/verificación para
+  cada una, no encontrar de dónde sacarlas. IPN, UAM y el resto de UNAM siguen en cero:
+  ahí el primer paso sigue siendo encontrar el portal equivalente de cada quien. Ver
+  ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo) arriba.
   - **Nota importante, todavía sin resolver:** antes de aceptar un PR con el horario de
     otra facultad, hay que revisar los términos de uso de la fuente original — muchas
     publican sus horarios sin licencia explícita.

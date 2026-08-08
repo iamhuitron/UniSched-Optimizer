@@ -1,0 +1,548 @@
+{
+  "institution": "UNAM FES Cuautitlán — Campo 4",
+  "program": "Licenciatura en Informática (Plan 2003)",
+  "term": "7mo semestre",
+  "sourceFile": "info_n.pdf (masam.cuautitlan.unam.mx/horarios), semestre 2027-1",
+  "extractedAt": "2026-08-06",
+  "subjects": [
+    {
+      "code": "700",
+      "name": "Análisis y toma de decisiones",
+      "credits": 6,
+      "sections": [
+        {
+          "id": "1701",
+          "professor": "Maricela Lara Martinez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 2,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A13-13111"
+            }
+          ]
+        },
+        {
+          "id": "1702",
+          "professor": "Anibal Jose Cab Salinas",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "07:30",
+              "end": "09:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "A11-1102"
+            }
+          ]
+        },
+        {
+          "id": "1703",
+          "professor": "Adriana Yañez Hernandez",
+          "blocks": [
+            {
+              "day": 3,
+              "start": "11:00",
+              "end": "12:00",
+              "room": "A14-14105"
+            },
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1751",
+          "professor": "Alfonso Acevedo Soriano",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 2,
+              "start": "17:00",
+              "end": "18:00",
+              "room": "A14-14103"
+            }
+          ]
+        },
+        {
+          "id": "1752",
+          "professor": "Rocio Gonzalez Hernandez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "15:30",
+              "end": "17:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 1,
+              "start": "15:30",
+              "end": "17:00",
+              "room": "A13-13105"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "701",
+      "name": "Seminario de investigación",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1701",
+          "professor": "Eduardo Garcia Gameros",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 3,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A13-13111"
+            }
+          ]
+        },
+        {
+          "id": "1702",
+          "professor": null,
+          "blocks": [
+            {
+              "day": 1,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A13-13102"
+            },
+            {
+              "day": 3,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14101"
+            }
+          ]
+        },
+        {
+          "id": "1703",
+          "professor": "Cristian Quintanar Castro",
+          "blocks": [
+            {
+              "day": 3,
+              "start": "12:00",
+              "end": "15:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 1,
+              "start": "14:30",
+              "end": "15:30",
+              "room": "A13-13105"
+            }
+          ]
+        },
+        {
+          "id": "1751",
+          "professor": "Rocio Camacho Rojas",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 3,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14103"
+            }
+          ]
+        },
+        {
+          "id": "1752",
+          "professor": "Eduardo Garcia Gameros",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "15:00",
+              "end": "16:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 3,
+              "start": "18:00",
+              "end": "21:00",
+              "room": "A13-13105"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "702",
+      "name": "Seguridad informática",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1701",
+          "professor": "Maricela Lara Martinez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A13-13111"
+            },
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A13-13111"
+            },
+            {
+              "day": 4,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14113"
+            }
+          ]
+        },
+        {
+          "id": "1702",
+          "professor": "Liana Lopez Pacheco",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A11-1102"
+            },
+            {
+              "day": 4,
+              "start": "08:00",
+              "end": "10:00",
+              "room": "A14-14112"
+            },
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "10:30",
+              "room": "A14-14102"
+            }
+          ]
+        },
+        {
+          "id": "1703",
+          "professor": "Rosalba Nancy Rosas Fonseca",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "10:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 4,
+              "start": "12:30",
+              "end": "15:00",
+              "room": "A14-14113"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A13-13111"
+            }
+          ]
+        },
+        {
+          "id": "1751",
+          "professor": "Rosalba Nancy Rosas Fonseca",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "18:00",
+              "end": "20:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 2,
+              "start": "18:00",
+              "end": "19:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 4,
+              "start": "19:00",
+              "end": "21:00",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1752",
+          "professor": "Rocio Gonzalez Hernandez",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "15:00",
+              "end": "17:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 0,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14112"
+            },
+            {
+              "day": 0,
+              "start": "19:00",
+              "end": "20:00",
+              "room": "A11-1101"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "703",
+      "name": "Laboratorio de sistemas de información",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1701",
+          "professor": "Leonel Gualberto Lopez Salazar",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 4,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A13-13111"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:30",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1702",
+          "professor": "Domingo Marquez Ortega",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "A13-13102"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 0,
+              "start": "10:30",
+              "end": "12:30",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1703",
+          "professor": "Adriana Yañez Hernandez",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A14-14102"
+            },
+            {
+              "day": 0,
+              "start": "11:00",
+              "end": "12:30",
+              "room": "A14-14105"
+            },
+            {
+              "day": 1,
+              "start": "12:30",
+              "end": "14:30",
+              "room": "A14-14113"
+            }
+          ]
+        },
+        {
+          "id": "1751",
+          "professor": "Ana Karen De La Luz Oliva",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "19:00",
+              "end": "21:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 3,
+              "start": "19:00",
+              "end": "20:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 3,
+              "start": "15:00",
+              "end": "17:00",
+              "room": "A14-14112"
+            }
+          ]
+        },
+        {
+          "id": "1752",
+          "professor": null,
+          "blocks": [
+            {
+              "day": 4,
+              "start": "17:00",
+              "end": "20:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 3,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A14-14113"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "704",
+      "name": "Matemáticas VI. Investigación de operaciones",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1701",
+          "professor": "Domingo Marquez Ortega",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "A13-13111"
+            },
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "A13-13111"
+            }
+          ]
+        },
+        {
+          "id": "1702",
+          "professor": "Oscar Hernandez Sanchez",
+          "blocks": [
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "A14-14112"
+            },
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "A14-14103"
+            }
+          ]
+        },
+        {
+          "id": "1703",
+          "professor": "Jose Alberto Gomez Escojido",
+          "blocks": [
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "A11-1102"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "09:30",
+              "room": "A13-13111"
+            }
+          ]
+        },
+        {
+          "id": "1751",
+          "professor": null,
+          "blocks": [
+            {
+              "day": 2,
+              "start": "19:00",
+              "end": "21:00",
+              "room": "A14-14103"
+            },
+            {
+              "day": 4,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A14-14103"
+            }
+          ]
+        },
+        {
+          "id": "1752",
+          "professor": "Julio Cesar Ramon Maldonado Rodriguez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A13-13105"
+            },
+            {
+              "day": 2,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A13-13105"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

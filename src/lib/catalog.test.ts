@@ -25,21 +25,40 @@ describe('CATALOG', () => {
     expect(hasDuplicates(allEntryIds)).toBe(false);
   });
 
-  it('every entry has a non-empty datasetPath pointing under /fixtures/', () => {
+  it('every entry that claims a datasetPath points under /fixtures/ as a .json file', () => {
     for (const uni of CATALOG) {
       for (const fac of uni.faculties) {
         for (const entry of fac.entries) {
-          expect(entry.datasetPath).toMatch(/^\/fixtures\/.+\.json$/);
+          if (entry.datasetPath !== undefined) {
+            expect(entry.datasetPath).toMatch(/^\/fixtures\/.+\.json$/);
+          }
         }
       }
     }
   });
 
-  it('includes the real, verified FES Cuautitlán entry', () => {
+  it('includes all six real, verified FES Cuautitlán Informática semesters', () => {
     const unam = CATALOG.find((u) => u.id === 'unam');
     const fesc = unam?.faculties.find((f) => f.id === 'fes-cuautitlan');
-    expect(fesc?.entries).toHaveLength(1);
-    expect(fesc?.entries[0]?.datasetPath).toBe('/fixtures/fes-cuautitlan-3er-semestre.json');
+    const informatica = fesc?.entries.filter((e) => e.careerName === 'Licenciatura en Informática') ?? [];
+    expect(informatica).toHaveLength(6);
+    for (const entry of informatica) {
+      expect(entry.datasetPath).toBeDefined();
+    }
+    expect(fesc?.entries.find((e) => e.id === 'fesc-informatica-3er')?.datasetPath).toBe(
+      '/fixtures/fes-cuautitlan-3er-semestre.json'
+    );
+  });
+
+  it('lists the rest of FES Cuautitlán\'s real careers without fabricating data for them', () => {
+    const unam = CATALOG.find((u) => u.id === 'unam');
+    const fesc = unam?.faculties.find((f) => f.id === 'fes-cuautitlan');
+    const others = fesc?.entries.filter((e) => e.careerName !== 'Licenciatura en Informática') ?? [];
+    // real careers, but genuinely not verified yet -> no datasetPath
+    expect(others.length).toBeGreaterThan(10);
+    for (const entry of others) {
+      expect(entry.datasetPath).toBeUndefined();
+    }
   });
 
   it('starts with UNAM, IPN and UAM as the top-level universities', () => {
