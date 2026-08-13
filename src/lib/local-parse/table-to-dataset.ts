@@ -17,23 +17,45 @@ import type { ParseWarning, PositionedItem } from './types';
  */
 
 const HEADER_ALIASES: Record<string, string> = {
+  codigo: 'code',
+  codigoasignatura: 'code',
   clave: 'code',
+  claveasignatura: 'code',
   asignatura: 'name',
+  asignaturaunidad: 'name',
   materia: 'name',
+  nombre: 'name',
+  nom: 'name',
   cr: 'credits',
   creditos: 'credits',
+  creditoscr: 'credits',
+  crédito: 'credits',
   créditos: 'credits',
   grupo: 'group',
+  gpo: 'group',
   aula: 'room',
+  salon: 'room',
+  salón: 'room',
   profesor: 'professor',
+  profesorjefe: 'professor',
+  docente: 'professor',
+  maestro: 'professor',
   lunes: 'day0',
+  lun: 'day0',
   martes: 'day1',
+  mar: 'day1',
   miercoles: 'day2',
   miércoles: 'day2',
+  mie: 'day2',
   jueves: 'day3',
+  jue: 'day3',
   viernes: 'day4',
+  vie: 'day4',
   sabado: 'day5',
   sábado: 'day5',
+  sab: 'day5',
+  domingo: 'day6',
+  dom: 'day6',
 };
 
 const DAY_COLUMN_TO_INDEX: Record<string, DayIndex> = {
@@ -50,7 +72,30 @@ function normalize(s: string): string {
     .trim()
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, ''); // strip accents so "Miércoles"/"miercoles" both match
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function headerMatches(text: string): string[] {
+  const normalized = normalize(text);
+  if (!normalized) return [];
+
+  const keys = new Set<string>();
+  const words = normalized.split(' ');
+  for (const word of words) {
+    const key = HEADER_ALIASES[word];
+    if (key) keys.add(key);
+  }
+
+  // Fallback for phrases like "Miercoles / Jueves", "Código | Materia", or
+  // other punctuation-heavy headers that OCR often emits as a single text item.
+  for (const [alias, key] of Object.entries(HEADER_ALIASES)) {
+    if (normalized.includes(alias)) keys.add(key);
+  }
+
+  return Array.from(keys);
 }
 
 interface Row {
@@ -94,37 +139,44 @@ interface ColumnAnchor {
 }
 
 function findHeaderRow(rows: Row[]): { row: Row; anchors: ColumnAnchor[] } | null {
+  let best: { row: Row; anchors: ColumnAnchor[]; score: number } | null = null;
   for (const row of rows) {
     const itemXs = Array.from(new Set(row.items.map((i) => i.x))).sort((a, b) => a - b);
     const typicalGap = medianGap(itemXs) ?? 40;
+    const anchorMap = new Map<string, number[]>();
 
-    const anchors: ColumnAnchor[] = [];
     for (const item of row.items) {
-      // a header item is usually a single word ("Lunes"), but the same adjacent-merge
-      // artifact that affects data cells can join two header words into one item
-      // ("Miercoles Jueves") — check each token, not just the whole string, or the
-      // second (and any later) column silently gets no anchor at all. Spread merged
-      // tokens out across the gap to the next header item instead of stacking them on
-      // the same x, so the two merged columns stay distinguishable from each other.
-      const tokens = item.text.split(/\s+/).filter((t) => HEADER_ALIASES[normalize(t)]);
-      if (tokens.length === 0) continue;
+      const keys = headerMatches(item.text);
+      if (keys.length === 0) continue;
+
       const nextItemX = itemXs.find((x) => x > item.x);
-      const span = (nextItemX ?? item.x + typicalGap) - item.x;
-      tokens.forEach((token, i) => {
-        const key = HEADER_ALIASES[normalize(token)]!;
-        if (!anchors.some((a) => a.key === key)) {
-          anchors.push({ key, x: item.x + (span * i) / tokens.length });
-        }
+      const span = Math.max((nextItemX ?? item.x + typicalGap) - item.x, 10);
+      keys.forEach((key, i) => {
+        const x = item.x + (keys.length > 1 ? (span * i) / keys.length : 0);
+        const arr = anchorMap.get(key) ?? [];
+        arr.push(x);
+        anchorMap.set(key, arr);
       });
     }
-    // require at least "code"/"name" plus at least two day columns to trust this as the real header
+
+    const anchors = Array.from(anchorMap.entries()).map(([key, values]) => ({
+      key,
+      x: values.reduce((sum, value) => sum + value, 0) / values.length,
+    }));
+
+    if (anchors.length === 0) continue;
+
     const hasCore = anchors.some((a) => a.key === 'code' || a.key === 'name');
+    const hasGroup = anchors.some((a) => a.key === 'group' || a.key === 'credits' || a.key === 'room');
     const dayCount = anchors.filter((a) => DAY_COLUMN_TO_INDEX[a.key] !== undefined).length;
-    if (hasCore && dayCount >= 2) {
-      return { row, anchors: anchors.sort((a, b) => a.x - b.x) };
+    const score = (hasCore ? 3 : 0) + (hasGroup ? 1 : 0) + dayCount;
+
+    if ((hasCore || hasGroup) && dayCount >= 2 && score > (best?.score ?? 0)) {
+      best = { row, anchors: anchors.sort((a, b) => a.x - b.x), score };
     }
   }
-  return null;
+
+  return best ? { row: best.row, anchors: best.anchors } : null;
 }
 
 function medianGap(sortedXs: number[]): number | null {
@@ -161,8 +213,9 @@ function cellsFromRow(row: Row, anchors: ColumnAnchor[]): Record<string, string>
   return cells;
 }
 
-const TIME_RANGE = /(\d{1,2}:\d{2})\s*[-–—]\s*(\d{1,2}:\d{2})/g;
-const TIME_RANGE_SOLO = /\d{1,2}:\d{2}\s*[-–—]\s*\d{1,2}:\d{2}/;
+const TIME_TOKEN = '\\d{1,2}(?::|\\.)?\\d{2}';
+const TIME_RANGE = new RegExp(`(${TIME_TOKEN})\\s*(?:-|–|—|a|al|hasta|to)\\s*(${TIME_TOKEN})`, 'gi');
+const TIME_RANGE_SOLO = new RegExp(`(${TIME_TOKEN})\\s*(?:-|–|—|a|al|hasta|to)\\s*(${TIME_TOKEN})`, 'i');
 
 /**
  * pdfjs (and OCR) sometimes report two visually-adjacent cells as a single text
@@ -198,6 +251,7 @@ function splitEmbeddedTimeRuns(rowItems: PositionedItem[], anchors: ColumnAnchor
 }
 
 function parseDayCell(text: string): { start: string; end: string }[] {
+  if (!text || text.trim() === '-' || normalize(text) === 'no') return [];
   const out: { start: string; end: string }[] = [];
   for (const match of text.matchAll(TIME_RANGE)) {
     out.push({ start: normalizeTime(match[1]!), end: normalizeTime(match[2]!) });
@@ -206,8 +260,11 @@ function parseDayCell(text: string): { start: string; end: string }[] {
 }
 
 function normalizeTime(t: string): string {
-  const [h, m] = t.split(':');
-  return `${(h ?? '0').padStart(2, '0')}:${m ?? '00'}`;
+  const raw = t.trim().replace(/\./g, ':');
+  const parts = raw.split(':');
+  const h = Number(parts[0] ?? '0');
+  const m = Number(parts[1] ?? '0');
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
 interface RawRecord {
@@ -251,7 +308,7 @@ export function tableToDataset(
     if (row === header.row) continue;
 
     // a later page may repeat the header — recompute anchors for that page, and skip the header row itself
-    const rowKeys = row.items.map((i) => HEADER_ALIASES[normalize(i.text)]).filter(Boolean);
+    const rowKeys = row.items.flatMap((i) => headerMatches(i.text));
     const looksLikeHeader = rowKeys.length >= 3;
     if (looksLikeHeader) {
       const rehead = findHeaderRow([row]);
@@ -284,13 +341,22 @@ export function tableToDataset(
 
     // a row with no code/group but with name text is almost always a wrapped continuation
     // of the ROW ABOVE it: long titles like "Informática III. Análisis y diseño de
-    // sistemas I" commonly wrap to a second line that sits just below the first
+    // sistemas I" commonly wrap to a second line that sits just below the first.
     if (!code && !group && cells.name) {
       const last = records[records.length - 1];
       if (last) last.name = (last.name + ' ' + cells.name).trim();
       continue;
     }
-    if (!code || !group) continue; // not a data row we can use (blank separator line, page footer, etc.)
+
+    // Some tables omit the explicit "Grupo" column, or a PDF/OCR pass merges it into the
+    // code/credits fields. If the code is present and the row clearly has time blocks, keep it
+    // as a valid record instead of dropping it just because the group field is missing.
+    if (!code) continue;
+    if (!group && Object.keys(cells).some((key) => DAY_COLUMN_TO_INDEX[key as keyof typeof DAY_COLUMN_TO_INDEX] !== undefined)) {
+      // The caller still has enough data to keep this row and attach blocks to the section.
+    } else if (!group) {
+      continue;
+    }
 
     const blocks: TimeBlock[] = [];
     for (const [col, dayIndex] of Object.entries(DAY_COLUMN_TO_INDEX)) {

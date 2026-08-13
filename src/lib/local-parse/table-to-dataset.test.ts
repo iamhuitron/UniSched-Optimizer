@@ -211,6 +211,53 @@ describe('tableToDataset', () => {
     ]);
   });
 
+  it('accepts alternative time separators such as "10:00 a 12:00" (regression)', () => {
+    const items = [
+      ...header(1, 100),
+      ...row(1, 120, {
+        clave: '300',
+        asignatura: 'Derecho',
+        grupo: '1301',
+        profesor: 'Xochitl Muñoz García',
+        martes: '10:00 a 12:00',
+        jueves: '10:00 a 12:00',
+      }),
+    ];
+
+    const { dataset, warnings } = tableToDataset(items, { institution: 'Test U' });
+    expect(warnings).toEqual([]);
+    expect(dataset.subjects[0]?.sections[0]?.blocks).toEqual(
+      expect.arrayContaining([
+        { day: 1, start: '10:00', end: '12:00' },
+        { day: 3, start: '10:00', end: '12:00' },
+      ])
+    );
+  });
+
+  it('detects merged day headers such as "Miércoles / Jueves" without losing either column', () => {
+    const mergedHeader = [
+      { text: 'Código', x: COLS.clave, y: 100, page: 1 },
+      { text: 'Materia', x: COLS.asignatura, y: 100, page: 1 },
+      { text: 'Profesor', x: COLS.profesor, y: 100, page: 1 },
+      { text: 'Miércoles / Jueves', x: COLS.miercoles, y: 100, page: 1 },
+    ];
+
+    const items = [
+      ...mergedHeader,
+      ...row(1, 120, { clave: '300', asignatura: 'Derecho', grupo: '1301', profesor: 'Xochitl', miercoles: '16:00-18:00' }),
+      ...row(1, 140, { clave: '301', asignatura: 'Metodologia', grupo: '1301', profesor: 'Irene', jueves: '17:00-19:00' }),
+    ];
+
+    const { dataset, warnings } = tableToDataset(items);
+    expect(warnings).toEqual([]);
+    expect(dataset.subjects.find((s) => s.code === '300')?.sections[0]?.blocks).toEqual([
+      { day: 2, start: '16:00', end: '18:00' },
+    ]);
+    expect(dataset.subjects.find((s) => s.code === '301')?.sections[0]?.blocks).toEqual([
+      { day: 3, start: '17:00', end: '19:00' },
+    ]);
+  });
+
   it('splits a data cell that merged with an adjacent time range (regression)', () => {
     // real bug: a long professor name with little visual gap before the next
     // column can come back as one item, e.g. "Irene Correa Esquivel 10:00-12:00"
