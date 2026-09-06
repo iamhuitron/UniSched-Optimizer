@@ -1,12 +1,28 @@
-# horario-óptimo
+# UniSched Optimizer (Horario Óptimo)
+
+<p align="left">
+  <strong>Deterministic Combinatorial Course Schedule Solver & Client-Side OCR Parser</strong><br>
+  Open-Source Engineering by <a href="https://github.com/iamhuitron"><strong>Ian Miguel Delgado Huitrón</strong></a> · UNAM (FES Cuautitlán)
+</p>
+
+<p align="left">
+  <a href="https://uni-sched-optimizer.vercel.app/"><img src="https://img.shields.io/badge/Live_Application-uni--sched--optimizer.vercel.app-2563eb?style=flat-square&logo=vercel&logoColor=white" alt="Live App" /></a>
+  <a href="https://github.com/iamhuitron"><img src="https://img.shields.io/badge/Author-@iamhuitron-1e293b?style=flat-square&logo=github&logoColor=white" alt="Author" /></a>
+  <a href="https://github.com/Xaol-Studio"><img src="https://img.shields.io/badge/Studio-@Xaol--Studio-059669?style=flat-square&logo=github&logoColor=white" alt="Studio" /></a>
+  <img src="https://img.shields.io/badge/Algorithm-Backtracking%20%2F%20CSP-purple?style=flat-square" alt="Algorithm" />
+  <img src="https://img.shields.io/badge/Privacy-100%25%20Client--Side%20(Wasm%20OCR)-emerald?style=flat-square" alt="Privacy" />
+</p>
+
+---
+
+## 📌 Descripción General
 
 Sube el PDF (o foto) de los horarios que publica tu universidad, dile tus restricciones —
 a qué hora quieres entrar, a qué hora salir, qué días quieres libres— y te regresa las
 mejores combinaciones de grupos posibles, sin choques. O si prefieres el control total,
 arma tu horario a mano, grupo por grupo, y te avisamos en vivo si algo se empalma.
 
-Todo corre local: la lectura del PDF/imagen no depende de ninguna API externa ni API key
-— nada de lo que subas sale de tu propia máquina o de tu propio servidor.
+> **100% Local y Privado:** La lectura del PDF/imagen no depende de ninguna API externa ni API key — nada de lo que subas sale de tu propia máquina o navegador.
 
 Nació de armar a mano el horario de 3er semestre de Informática en FES Cuautitlán (UNAM):
 cruzar 7 materias contra 5 grupos distintos, cada uno con 2 o 3 sesiones a la semana,
