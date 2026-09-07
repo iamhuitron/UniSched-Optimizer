@@ -6,6 +6,10 @@ const nextConfig = {
   // of real paths, which breaks that lookup — so these stay external and load
   // straight from node_modules via Node's own module resolution instead.
   serverExternalPackages: ['pdfjs-dist', 'tesseract.js', 'tesseract.js-core', '@tesseract.js-data/spa'],
+  experimental: {
+    cpus: 1,
+    workerThreads: false,
+  },
 };
 
 export default nextConfig;
