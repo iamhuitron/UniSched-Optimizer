@@ -86,12 +86,16 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
         </span>
       </label>
 
+      <div className={styles.formatPill}>
+        ⚡ Soporta horarios en columnas por día (Lun, Mar, Mié...) y en formato combinado (Días + Horario)
+      </div>
+
       <label className={styles.hintLabel}>
         Nombre de la universidad/facultad (opcional, para etiquetar el resultado)
         <input
           type="text"
           className={styles.hintInput}
-          placeholder="ej. Facultad de Ingeniería, UANL"
+          placeholder="ej. Facultad de Ingeniería, UNAM"
           value={hint}
           onChange={(e) => setHint(e.target.value)}
         />
@@ -100,6 +104,14 @@ export default function UploadPanel({ onExtracted }: { onExtracted: (dataset: Sc
       <button type="submit" className={styles.submit} disabled={loading}>
         {loading && <span className={styles.spinner} aria-hidden="true" />}
         {loading ? 'Leyendo el horario…' : 'Leer materias y horarios'}
+      </button>
+
+      <button
+        type="button"
+        className={styles.manualFallbackBtn}
+        onClick={() => onExtracted({ institution: hint.trim() || 'Mi Horario', subjects: [] })}
+      >
+        O si prefieres, arma tu horario a mano desde cero →
       </button>
 
       {error && <p className={styles.error}>{error}</p>}

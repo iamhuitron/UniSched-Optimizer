@@ -1,0 +1,138 @@
+{
+  "institution": "UAM Azcapotzalco",
+  "program": "Ingeniería en Computación",
+  "term": "3er trimestre",
+  "sourceFile": "uam-azc-horarios-2026.json",
+  "extractedAt": "2026-08-12",
+  "subjects": [
+    {
+      "code": "1151040",
+      "name": "Estructuras Discretas",
+      "credits": 9,
+      "sections": [
+        {
+          "id": "CT01",
+          "professor": "Dr. Raúl Monroy Borja",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "H-102"
+            },
+            {
+              "day": 2,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "H-102"
+            },
+            {
+              "day": 4,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "H-102"
+            }
+          ]
+        },
+        {
+          "id": "CT02",
+          "professor": "Mtra. Sonia Mendoza",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "H-103"
+            },
+            {
+              "day": 3,
+              "start": "10:00",
+              "end": "11:30",
+              "room": "H-103"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1151041",
+      "name": "Programación Estructurada",
+      "credits": 11,
+      "sections": [
+        {
+          "id": "CT01",
+          "professor": "Dr. Román Anselmo Pérez",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "CS-004"
+            },
+            {
+              "day": 2,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "CS-004"
+            },
+            {
+              "day": 4,
+              "start": "10:00",
+              "end": "12:00",
+              "room": "CS-004"
+            }
+          ]
+        },
+        {
+          "id": "CT02",
+          "professor": "Mtro. Víctor Hugo Zaldívar",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "14:00",
+              "end": "16:00",
+              "room": "CS-005"
+            },
+            {
+              "day": 3,
+              "start": "14:00",
+              "end": "16:00",
+              "room": "CS-005"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1151042",
+      "name": "Cálculo Integral",
+      "credits": 9,
+      "sections": [
+        {
+          "id": "CT01",
+          "professor": "Mtro. Jaime Valadez Cruz",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "H-201"
+            },
+            {
+              "day": 2,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "H-201"
+            },
+            {
+              "day": 4,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "H-201"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

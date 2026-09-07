@@ -56,6 +56,16 @@ const HEADER_ALIASES: Record<string, string> = {
   sab: 'day5',
   domingo: 'day6',
   dom: 'day6',
+  dias: 'days',
+  dia: 'days',
+  fechas: 'days',
+  horario: 'time',
+  horarios: 'time',
+  hora: 'time',
+  horas: 'time',
+  turno: 'time',
+  turnos: 'time',
+  tiempo: 'time',
 };
 
 const DAY_COLUMN_TO_INDEX: Record<string, DayIndex> = {
@@ -169,9 +179,10 @@ function findHeaderRow(rows: Row[]): { row: Row; anchors: ColumnAnchor[] } | nul
     const hasCore = anchors.some((a) => a.key === 'code' || a.key === 'name');
     const hasGroup = anchors.some((a) => a.key === 'group' || a.key === 'credits' || a.key === 'room');
     const dayCount = anchors.filter((a) => DAY_COLUMN_TO_INDEX[a.key] !== undefined).length;
-    const score = (hasCore ? 3 : 0) + (hasGroup ? 1 : 0) + dayCount;
+    const hasCombinedDays = anchors.some((a) => a.key === 'days' || a.key === 'time');
+    const score = (hasCore ? 3 : 0) + (hasGroup ? 1 : 0) + dayCount + (hasCombinedDays ? 3 : 0);
 
-    if ((hasCore || hasGroup) && dayCount >= 2 && score > (best?.score ?? 0)) {
+    if ((hasCore || hasGroup) && (dayCount >= 2 || hasCombinedDays) && score > (best?.score ?? 0)) {
       best = { row, anchors: anchors.sort((a, b) => a.x - b.x), score };
     }
   }
@@ -257,6 +268,113 @@ function parseDayCell(text: string): { start: string; end: string }[] {
     out.push({ start: normalizeTime(match[1]!), end: normalizeTime(match[2]!) });
   }
   return out;
+}
+
+const SPANISH_DAY_TOKENS: Record<string, DayIndex> = {
+  lu: 0,
+  lun: 0,
+  lunes: 0,
+  l: 0,
+  ma: 1,
+  mar: 1,
+  martes: 1,
+  m: 1,
+  mi: 2,
+  mie: 2,
+  mier: 2,
+  miercoles: 2,
+  x: 2,
+  ju: 3,
+  jue: 3,
+  jueves: 3,
+  j: 3,
+  vi: 4,
+  vie: 4,
+  viernes: 4,
+  v: 4,
+  sa: 5,
+  sab: 5,
+  sabado: 5,
+  s: 5,
+  do: 6,
+  dom: 6,
+  domingo: 6,
+  d: 6,
+};
+
+export function parseDayTokens(text: string): DayIndex[] {
+  const norm = normalize(text);
+  if (!norm) return [];
+
+  // Range detection: e.g. "lun-vie", "l-v", "l a v", "mar a jue", "l-j"
+  const rangeMatch = norm.match(
+    /\b(lu|lun|lunes|l|ma|mar|martes|m|mi|mie|mier|miercoles|x|ju|jue|jueves|j|vi|vie|viernes|v|sa|sab|sabado|s)\s*(?:a|-|al|hasta)\s*(lu|lun|lunes|l|ma|mar|martes|m|mi|mie|mier|miercoles|x|ju|jue|jueves|j|vi|vie|viernes|v|sa|sab|sabado|s)\b/
+  );
+  if (rangeMatch && rangeMatch[1] && rangeMatch[2]) {
+    const startDay = SPANISH_DAY_TOKENS[rangeMatch[1]];
+    const endDay = SPANISH_DAY_TOKENS[rangeMatch[2]];
+    if (startDay !== undefined && endDay !== undefined && startDay <= endDay) {
+      const days: DayIndex[] = [];
+      for (let d = startDay; d <= endDay; d++) {
+        days.push(d as DayIndex);
+      }
+      return days;
+    }
+  }
+
+  // Tokenize by word / separator
+  const words = norm.replace(/\b(y|e|al|a)\b/g, ' ').split(/\s+/).filter(Boolean);
+  const matchedDays = new Set<DayIndex>();
+  for (const word of words) {
+    const d = SPANISH_DAY_TOKENS[word];
+    if (d !== undefined) matchedDays.add(d);
+  }
+  return Array.from(matchedDays).sort((a, b) => a - b);
+}
+
+export function parseCombinedSchedule(daysText: string, timeText: string): TimeBlock[] {
+  const blocks: TimeBlock[] = [];
+  const times = parseDayCell(timeText);
+  const days = parseDayTokens(daysText);
+
+  if (days.length > 0 && times.length > 0) {
+    for (const day of days) {
+      for (const t of times) {
+        blocks.push({ day, start: t.start, end: t.end });
+      }
+    }
+    return blocks;
+  }
+
+  // Inline day + time patterns in either text (e.g. "LUN 07:00-09:00, VIE 07:00-09:00")
+  const combined = `${daysText} ${timeText}`.trim();
+  if (!combined) return [];
+
+  const segmentRegex =
+    /(?:^|\s|,)([a-z0-9]{1,9}(?:\s*[-–]\s*[a-z0-9]{1,9})?)\s*(\d{1,2}(?::|\.)?\d{2}\s*(?:-|–|—|a|al|to)\s*\d{1,2}(?::|\.)?\d{2})/gi;
+  let match: RegExpExecArray | null;
+  let found = false;
+  while ((match = segmentRegex.exec(combined)) !== null) {
+    found = true;
+    const segDays = parseDayTokens(match[1] || '');
+    const segTimes = parseDayCell(match[2] || '');
+    for (const d of segDays) {
+      for (const t of segTimes) {
+        blocks.push({ day: d, start: t.start, end: t.end });
+      }
+    }
+  }
+
+  if (!found && times.length > 0 && days.length === 0) {
+    const fallbackDays = parseDayTokens(combined);
+    for (const d of fallbackDays) {
+      for (const t of times) {
+        blocks.push({ day: d, start: t.start, end: t.end });
+      }
+    }
+  }
+
+  return blocks;
 }
 
 function normalizeTime(t: string): string {
@@ -352,13 +470,16 @@ export function tableToDataset(
     // code/credits fields. If the code is present and the row clearly has time blocks, keep it
     // as a valid record instead of dropping it just because the group field is missing.
     if (!code) continue;
-    if (!group && Object.keys(cells).some((key) => DAY_COLUMN_TO_INDEX[key as keyof typeof DAY_COLUMN_TO_INDEX] !== undefined)) {
-      // The caller still has enough data to keep this row and attach blocks to the section.
-    } else if (!group) {
+    const hasDayCol = Object.keys(cells).some((key) => DAY_COLUMN_TO_INDEX[key as keyof typeof DAY_COLUMN_TO_INDEX] !== undefined);
+    const hasCombinedSched = Boolean(cells.days || cells.time);
+    if (!group && !hasDayCol && !hasCombinedSched) {
       continue;
     }
 
+    const effectiveGroup = group || '101';
+
     const blocks: TimeBlock[] = [];
+    // Layout A: Separate day columns
     for (const [col, dayIndex] of Object.entries(DAY_COLUMN_TO_INDEX)) {
       const cellText = cells[col];
       if (!cellText) continue;
@@ -367,11 +488,17 @@ export function tableToDataset(
       }
     }
 
+    // Layout B: Combined days / time column
+    if (cells.days || cells.time) {
+      const combinedBlocks = parseCombinedSchedule(cells.days || '', cells.time || '');
+      blocks.push(...combinedBlocks);
+    }
+
     records.push({
       code,
       name: (cells.name ?? '').trim(),
       credits: cells.credits ? Number(cells.credits) || undefined : undefined,
-      group,
+      group: effectiveGroup,
       room: cells.room || undefined,
       professor: cells.professor || undefined,
       blocks,

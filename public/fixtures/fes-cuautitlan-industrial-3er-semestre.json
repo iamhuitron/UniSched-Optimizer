@@ -1,0 +1,102 @@
+{
+  "institution": "UNAM FES Cuautitlán — Campo 4",
+  "program": "Ingeniería Industrial",
+  "term": "3er semestre",
+  "sourceFile": "fesc-industrial-horarios-2026.json",
+  "extractedAt": "2026-08-18",
+  "subjects": [
+    {
+      "code": "IND-301",
+      "name": "Estadística Industrial",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "M. en C. Gerardo Pineda Silva",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A13-13101"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A13-13101"
+            }
+          ]
+        },
+        {
+          "id": "1351",
+          "professor": "Ing. Manuel Rivas Pérez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A13-13102"
+            },
+            {
+              "day": 3,
+              "start": "17:00",
+              "end": "19:00",
+              "room": "A13-13102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "IND-302",
+      "name": "Estudio del Trabajo",
+      "credits": 10,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "Ing. Leticia Ramos Cruz",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A13-13101"
+            },
+            {
+              "day": 4,
+              "start": "09:00",
+              "end": "12:00",
+              "room": "Lab-Metodos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "IND-303",
+      "name": "Termodinámica",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "Dr. Jorge Mendoza Ruiz",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A13-13103"
+            },
+            {
+              "day": 3,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A13-13103"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -282,4 +282,58 @@ describe('tableToDataset', () => {
     expect(dataset.subjects).toEqual([]);
     expect(warnings.length).toBeGreaterThan(0);
   });
+
+  it('reconstructs a table with combined Dias and Horario columns (Layout B)', () => {
+    const layoutBCols = {
+      clave: 20,
+      materia: 80,
+      grupo: 220,
+      profesor: 280,
+      dias: 400,
+      horario: 480,
+    };
+
+    const items: PositionedItem[] = [
+      { text: 'Clave', x: layoutBCols.clave, y: 50, page: 1 },
+      { text: 'Materia', x: layoutBCols.materia, y: 50, page: 1 },
+      { text: 'Grupo', x: layoutBCols.grupo, y: 50, page: 1 },
+      { text: 'Profesor', x: layoutBCols.profesor, y: 50, page: 1 },
+      { text: 'Dias', x: layoutBCols.dias, y: 50, page: 1 },
+      { text: 'Horario', x: layoutBCols.horario, y: 50, page: 1 },
+
+      { text: '501', x: layoutBCols.clave, y: 80, page: 1 },
+      { text: 'Estructuras de Datos', x: layoutBCols.materia, y: 80, page: 1 },
+      { text: '1501', x: layoutBCols.grupo, y: 80, page: 1 },
+      { text: 'Alan Turing', x: layoutBCols.profesor, y: 80, page: 1 },
+      { text: 'Lun, Mie, Vie', x: layoutBCols.dias, y: 80, page: 1 },
+      { text: '07:00-09:00', x: layoutBCols.horario, y: 80, page: 1 },
+
+      { text: '502', x: layoutBCols.clave, y: 110, page: 1 },
+      { text: 'Bases de Datos', x: layoutBCols.materia, y: 110, page: 1 },
+      { text: '1501', x: layoutBCols.grupo, y: 110, page: 1 },
+      { text: 'Grace Hopper', x: layoutBCols.profesor, y: 110, page: 1 },
+      { text: 'Mar y Jue', x: layoutBCols.dias, y: 110, page: 1 },
+      { text: '11:00-13:00', x: layoutBCols.horario, y: 110, page: 1 },
+    ];
+
+    const { dataset, warnings } = tableToDataset(items);
+    expect(warnings).toEqual([]);
+    expect(dataset.subjects).toHaveLength(2);
+
+    const ed = dataset.subjects.find((s) => s.code === '501');
+    expect(ed?.name).toBe('Estructuras de datos');
+    expect(ed?.sections[0]?.blocks).toHaveLength(3);
+    expect(ed?.sections[0]?.blocks).toEqual([
+      { day: 0, start: '07:00', end: '09:00' },
+      { day: 2, start: '07:00', end: '09:00' },
+      { day: 4, start: '07:00', end: '09:00' },
+    ]);
+
+    const bd = dataset.subjects.find((s) => s.code === '502');
+    expect(bd?.sections[0]?.blocks).toHaveLength(2);
+    expect(bd?.sections[0]?.blocks).toEqual([
+      { day: 1, start: '11:00', end: '13:00' },
+      { day: 3, start: '11:00', end: '13:00' },
+    ]);
+  });
 });

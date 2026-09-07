@@ -1,0 +1,266 @@
+{
+  "institution": "UNAM Facultad de Ingeniería (CU)",
+  "program": "Ingeniería en Computación",
+  "term": "3er semestre",
+  "sourceFile": "horarios-fi-computacion-2026.json",
+  "extractedAt": "2026-08-01",
+  "subjects": [
+    {
+      "code": "1321",
+      "name": "Estructuras de Datos y Algoritmos I",
+      "credits": 10,
+      "sections": [
+        {
+          "id": "01",
+          "professor": "Dr. Fernando Arreola Miranda",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A-201"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A-201"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "Lab-L2"
+            }
+          ]
+        },
+        {
+          "id": "02",
+          "professor": "Mtra. Laura Patricia Sandoval",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-202"
+            },
+            {
+              "day": 3,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-202"
+            },
+            {
+              "day": 4,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "Lab-L3"
+            }
+          ]
+        },
+        {
+          "id": "03",
+          "professor": "Ing. Carlos Morales Peña",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A-104"
+            },
+            {
+              "day": 2,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A-104"
+            },
+            {
+              "day": 4,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "Lab-L1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1322",
+      "name": "Probabilidad",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "01",
+          "professor": "Dra. Gabriela López Velasco",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-201"
+            },
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-201"
+            }
+          ]
+        },
+        {
+          "id": "02",
+          "professor": "M.C. Jorge Mendoza Ramos",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-203"
+            },
+            {
+              "day": 3,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-203"
+            }
+          ]
+        },
+        {
+          "id": "03",
+          "professor": "Ing. Roberto Solís Castillo",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "18:00",
+              "end": "20:00",
+              "room": "A-102"
+            },
+            {
+              "day": 2,
+              "start": "18:00",
+              "end": "20:00",
+              "room": "A-102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1323",
+      "name": "Cálculo Vectorial",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "01",
+          "professor": "Mtro. Arturo Domínguez Cruz",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-204"
+            },
+            {
+              "day": 2,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-204"
+            }
+          ]
+        },
+        {
+          "id": "02",
+          "professor": "Dra. Marcela Rangel Soto",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A-205"
+            },
+            {
+              "day": 3,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A-205"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1324",
+      "name": "Ecuaciones Diferenciales",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "01",
+          "professor": "Dr. Sergio Vargas Galindo",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "13:00",
+              "end": "15:00",
+              "room": "A-201"
+            },
+            {
+              "day": 3,
+              "start": "13:00",
+              "end": "15:00",
+              "room": "A-201"
+            }
+          ]
+        },
+        {
+          "id": "02",
+          "professor": "Ing. Patricia Ortiz Romero",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "13:00",
+              "end": "15:00",
+              "room": "A-202"
+            },
+            {
+              "day": 2,
+              "start": "13:00",
+              "end": "15:00",
+              "room": "A-202"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1325",
+      "name": "Cultura y Comunicación",
+      "credits": 4,
+      "sections": [
+        {
+          "id": "01",
+          "professor": "Lic. Adriana Reyes Fuentes",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-108"
+            }
+          ]
+        },
+        {
+          "id": "02",
+          "professor": "Mtro. Javier Salgado Ruiz",
+          "blocks": [
+            {
+              "day": 4,
+              "start": "13:00",
+              "end": "15:00",
+              "room": "A-108"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

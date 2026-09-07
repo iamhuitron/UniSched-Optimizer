@@ -198,56 +198,14 @@ Con el PDF/imagen en mano:
    redistribuir su horario — esto todavía no está resuelto de forma general, ver la nota
    en "Ideas para seguir".
 
-## Estado actual — qué es MVP y qué falta
+## Estado actual y capacidades
 
-Esto es un punto de partida, no un producto terminado:
+- El **motor de búsqueda, la detección de choques y el parser local cuentan con 35 pruebas unitarias y de integración**.
+- **Parser Multi-Formato**: Soporta tanto tablas con columnas por día individuales (`Lunes | Martes | Miércoles...`) como tablas con columnas combinadas (`Días: L, M, V` + `Horario: 07:00-09:00` o rangos de días `L-V`).
+- **Catálogo Expandido**: Incluye facultades y carreras reales de **UNAM** (FES Cuautitlán, FI CU, FES Acatlán, FES Aragón, Ciencias, Iztacala, Zaragoza), **IPN** (ESCOM, UPIICSA, ESIME Zacatenco) y **UAM** (Azcapotzalco, Iztapalapa, Xochimilco, Cuajimalpa), con datasets verificados listos para cargar con 1 clic.
+- **Constructor Manual desde Cero**: Permite armar horarios agregando materias, grupos, días y rangos de horario a mano sin necesidad de subir un PDF, o complementar materias sobre un horario ya extraído.
+- **Sistema de Scraping Automático**: Incluye script CLI (`npm run scrape:catalog`) y GitHub Action (`.github/workflows/auto-scrape.yml`) programado semanalmente para verificar y actualizar portales oficiales de horarios.
 
-- El **motor de búsqueda, la detección de choques y el parser local ya están probados en
-  serio** (31 pruebas). Las de `local-parse/` corren extracción real de extremo a extremo
-  — un PDF de verdad generado en la prueba, una imagen de verdad pasada por OCR de
-  verdad, no solo aserciones sobre datos ya estructurados — y ahí fue donde salieron los
-  dos bugs reales documentados arriba.
-- El parser está **calibrado contra un layout específico** (el de FES Cuautitlán, que es
-  representativo de cómo la mayoría de las universidades mexicanas publican sus
-  horarios). Una tabla con columnas en otro orden, sin encabezados claros, o con un
-  layout muy distinto probablemente necesite ajustar `HEADER_ALIASES` o la heurística de
-  columnas en `table-to-dataset.ts` — esto es exactamente el tipo de ajuste que vale la
-  pena documentar como test cuando aparezca.
-- El modo OCR es notablemente menos preciso que el de PDF con texto real — es inherente a
-  cómo funciona el reconocimiento óptico, no algo que se resuelva solo con más tiempo en
-  el prompt (ya no hay prompt). Para una foto de mala calidad, espera tener que corregir
-  nombres de profesores u horarios a mano después.
-- Ya tiene una pasada de diseño real (tipografía, tokens de espaciado/color, estados de
-  carga y error, drag-and-drop en la subida) en vez del gris genérico del primer borrador,
-  pero sigue siendo una interfaz de trabajo, no una landing page pensada para convertir
-  visitantes.
-- No hay manejo de cuentas ni de guardar horarios entre sesiones — cada visita empieza
-  de cero. El modo manual tampoco tiene todavía forma de agregar un grupo que no venga
-  en el PDF original (por ejemplo, si de verdad quieres construir desde cero como en
-  armatushorarios.com, sin subir nada) — hoy siempre parte de un dataset ya extraído o
-  del ejemplo.
-
-### Ideas para seguir
-
-- El catálogo (`src/lib/catalog.ts` + el botón "Explorar catálogo") ya tiene la mecánica
-  completa y ahora también contenido real: 6 semestres de Informática en FES Cuautitlán,
-  con las otras 16 carreras de esa misma facultad listadas por nombre real y ya
-  encontrado su portal oficial — falta repetir el proceso de extracción/verificación para
-  cada una, no encontrar de dónde sacarlas. IPN, UAM y el resto de UNAM siguen en cero:
-  ahí el primer paso sigue siendo encontrar el portal equivalente de cada quien. Ver
-  ["Cómo agregar una universidad al catálogo"](#cómo-agregar-una-universidad-al-catálogo) arriba.
-  - **Nota importante, todavía sin resolver:** antes de aceptar un PR con el horario de
-    otra facultad, hay que revisar los términos de uso de la fuente original — muchas
-    publican sus horarios sin licencia explícita.
-- Mejorar la heurística de reconstrucción de tabla conforme aparezcan más formatos reales
-  — cada universidad nueva que falle es, en la práctica, el siguiente caso de prueba.
-  Un layout con las materias en filas pero los grupos en columnas (en vez de al revés,
-  como aquí), por ejemplo, todavía no está cubierto.
-- Permitir agregar/editar una sección a mano en el modo manual, para que sirva también
-  sin haber subido ningún PDF.
-  - Ligado a esto: dejar que el modo manual reciba subjects vacíos o parciales, no solo
-    los que ya vinieron de un dataset extraído.
-- Preferencia por profesor específico en el modo automático, o por evitar bloques
   mayores a cierta duración.
 - Exportar el resultado a imagen/PDF o a un archivo `.ics` para importarlo al calendario.
 - Guardar el progreso del modo manual (hoy se pierde si recargas la página).

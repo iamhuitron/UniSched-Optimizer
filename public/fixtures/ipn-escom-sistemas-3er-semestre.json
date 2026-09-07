@@ -1,0 +1,259 @@
+{
+  "institution": "IPN ESCOM — Escuela Superior de Cómputo",
+  "program": "Ingeniería en Sistemas Computacionales",
+  "term": "3er semestre",
+  "sourceFile": "escom-horarios-2026-1.json",
+  "extractedAt": "2026-08-05",
+  "subjects": [
+    {
+      "code": "ISC-301",
+      "name": "Estructuras de Datos",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "3CM1",
+          "professor": "M. en C. Ulises Vélez Saldaña",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "Lab-1"
+            },
+            {
+              "day": 1,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "A-101"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "Lab-1"
+            },
+            {
+              "day": 3,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "A-101"
+            }
+          ]
+        },
+        {
+          "id": "3CM2",
+          "professor": "Dr. Benjamín Luna Benoso",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "Lab-2"
+            },
+            {
+              "day": 1,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A-102"
+            },
+            {
+              "day": 2,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "Lab-2"
+            },
+            {
+              "day": 3,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A-102"
+            }
+          ]
+        },
+        {
+          "id": "3CV1",
+          "professor": "M. en C. Roberto Eswart Zagal",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "15:00",
+              "end": "16:30",
+              "room": "Lab-3"
+            },
+            {
+              "day": 1,
+              "start": "15:00",
+              "end": "16:30",
+              "room": "A-201"
+            },
+            {
+              "day": 2,
+              "start": "15:00",
+              "end": "16:30",
+              "room": "Lab-3"
+            },
+            {
+              "day": 3,
+              "start": "15:00",
+              "end": "16:30",
+              "room": "A-201"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ISC-302",
+      "name": "Ecuaciones Diferenciales",
+      "credits": 7,
+      "sections": [
+        {
+          "id": "3CM1",
+          "professor": "Mtra. Rocío Palacios Solano",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A-101"
+            },
+            {
+              "day": 2,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A-101"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "08:30",
+              "room": "A-101"
+            }
+          ]
+        },
+        {
+          "id": "3CM2",
+          "professor": "Dr. Juan Carlos Tut Gomez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A-102"
+            },
+            {
+              "day": 3,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A-102"
+            },
+            {
+              "day": 4,
+              "start": "08:30",
+              "end": "10:00",
+              "room": "A-102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ISC-303",
+      "name": "Circuitos Eléctricos",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "3CM1",
+          "professor": "Ing. Miguel Ángel Miranda",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "Lab-CE"
+            },
+            {
+              "day": 3,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "Lab-CE"
+            },
+            {
+              "day": 4,
+              "start": "10:30",
+              "end": "12:00",
+              "room": "A-101"
+            }
+          ]
+        },
+        {
+          "id": "3CV1",
+          "professor": "Dr. Marco Antonio Gandarilla",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "16:30",
+              "end": "18:00",
+              "room": "Lab-CE"
+            },
+            {
+              "day": 2,
+              "start": "16:30",
+              "end": "18:00",
+              "room": "Lab-CE"
+            },
+            {
+              "day": 4,
+              "start": "15:00",
+              "end": "16:30",
+              "room": "A-201"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ISC-304",
+      "name": "Teoría de Autómatas",
+      "credits": 7,
+      "sections": [
+        {
+          "id": "3CM1",
+          "professor": "Dr. Flavio Arturo Sánchez Garfias",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "A-101"
+            },
+            {
+              "day": 2,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "A-101"
+            }
+          ]
+        },
+        {
+          "id": "3CM2",
+          "professor": "M. en C. Edgardo Franco Martínez",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "A-102"
+            },
+            {
+              "day": 3,
+              "start": "12:00",
+              "end": "13:30",
+              "room": "A-102"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

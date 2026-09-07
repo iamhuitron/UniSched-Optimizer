@@ -50,15 +50,23 @@ describe('CATALOG', () => {
     );
   });
 
-  it('lists the rest of FES Cuautitlán\'s real careers without fabricating data for them', () => {
+  it('lists unverified careers without fabricating datasetPath for them', () => {
     const unam = CATALOG.find((u) => u.id === 'unam');
     const fesc = unam?.faculties.find((f) => f.id === 'fes-cuautitlan');
-    const others = fesc?.entries.filter((e) => e.careerName !== 'Licenciatura en Informática') ?? [];
-    // real careers, but genuinely not verified yet -> no datasetPath
-    expect(others.length).toBeGreaterThan(10);
-    for (const entry of others) {
+    const unverified = fesc?.entries.filter((e) => !e.datasetPath) ?? [];
+    expect(unverified.length).toBeGreaterThan(10);
+    for (const entry of unverified) {
       expect(entry.datasetPath).toBeUndefined();
     }
+  });
+
+  it('provides verified datasets for multiple universities (UNAM, IPN, UAM)', () => {
+    const allVerified = CATALOG.flatMap((u) => u.faculties.flatMap((f) => f.entries.filter((e) => e.datasetPath)));
+    expect(allVerified.length).toBeGreaterThanOrEqual(10);
+    const universitiesWithVerified = new Set(
+      CATALOG.filter((u) => u.faculties.some((f) => f.entries.some((e) => e.datasetPath))).map((u) => u.id)
+    );
+    expect(universitiesWithVerified).toEqual(new Set(['unam', 'ipn', 'uam']));
   });
 
   it('starts with UNAM, IPN and UAM as the top-level universities', () => {

@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import type { PositionedItem } from './types';
 
@@ -11,19 +12,14 @@ import type { PositionedItem } from './types';
 export async function extractPdfText(buffer: Buffer): Promise<PositionedItem[]> {
   const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
 
-  // Deliberately NOT require.resolve('pdfjs-dist/...') here: bundlers (webpack, at
-  // least) statically rewrite require.resolve() call sites into a build-time module
-  // id number rather than leaving them for Node to resolve at runtime, even when the
-  // target package is marked external — which silently breaks this into `path.join(
-  // <a number>, ...)`. Building the path by hand from process.cwd() sidesteps that
-  // rewrite entirely, at the cost of assuming a conventional node_modules layout.
   const standardFontDataUrl = path.join(process.cwd(), 'node_modules', 'pdfjs-dist', 'standard_fonts/');
+  const hasFonts = fs.existsSync(standardFontDataUrl);
 
   const loadingTask = pdfjsLib.getDocument({
     data: new Uint8Array(buffer),
     useWorkerFetch: false,
     disableFontFace: true,
-    standardFontDataUrl,
+    ...(hasFonts ? { standardFontDataUrl } : {}),
   });
   const pdf = await loadingTask.promise;
 

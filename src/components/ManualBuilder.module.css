@@ -116,3 +116,109 @@
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
 }
+
+.addSubjectBtn {
+  align-self: flex-start;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+  cursor: pointer;
+  margin-top: var(--space-2);
+}
+
+.addSubjectBtn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.customForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.customFormTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.customFormRow {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.customInput {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-2);
+  background: var(--stripe);
+  color: var(--text);
+  flex: 1;
+  min-width: 130px;
+}
+
+.daysSelect {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dayBtn {
+  font: inherit;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-2);
+  background: var(--stripe);
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.dayBtn[data-active='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.customActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.saveBtn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  font: inherit;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-2);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+}

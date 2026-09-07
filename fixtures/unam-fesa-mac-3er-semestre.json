@@ -1,0 +1,126 @@
+{
+  "institution": "UNAM FES Acatlán",
+  "program": "Matemáticas Aplicadas y Computación",
+  "term": "3er semestre",
+  "sourceFile": "fesa-mac-horarios-2026.json",
+  "extractedAt": "2026-08-15",
+  "subjects": [
+    {
+      "code": "MAC-301",
+      "name": "Programación y Estructuras de Datos",
+      "credits": 10,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "Mtro. Ricardo Guzmán Cabrera",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "A-12"
+            },
+            {
+              "day": 2,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "Lab-MAC"
+            },
+            {
+              "day": 4,
+              "start": "07:00",
+              "end": "09:00",
+              "room": "Lab-MAC"
+            }
+          ]
+        },
+        {
+          "id": "1351",
+          "professor": "Dra. Rebeca Maya Moreno",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "A-14"
+            },
+            {
+              "day": 3,
+              "start": "16:00",
+              "end": "18:00",
+              "room": "Lab-MAC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAC-302",
+      "name": "Cálculo Avanzado",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "Dr. José Luis Morales",
+          "blocks": [
+            {
+              "day": 0,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-12"
+            },
+            {
+              "day": 2,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-12"
+            }
+          ]
+        },
+        {
+          "id": "1302",
+          "professor": "Mtra. Silvia González",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-13"
+            },
+            {
+              "day": 3,
+              "start": "09:00",
+              "end": "11:00",
+              "room": "A-13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAC-303",
+      "name": "Álgebra Lineal Aplicada",
+      "credits": 8,
+      "sections": [
+        {
+          "id": "1301",
+          "professor": "Dr. Fernando Velasco",
+          "blocks": [
+            {
+              "day": 1,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-12"
+            },
+            {
+              "day": 3,
+              "start": "11:00",
+              "end": "13:00",
+              "room": "A-12"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "scrape:catalog": "node scripts/scraper/scrape.mjs"
   },
   "dependencies": {
     "@tesseract.js-data/spa": "^1.0.0",

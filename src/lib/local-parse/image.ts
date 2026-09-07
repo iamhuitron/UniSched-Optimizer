@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { createWorker } from 'tesseract.js';
 import type { PositionedItem } from './types';
@@ -10,12 +11,12 @@ import type { PositionedItem } from './types';
  * it has no real text layer to read.
  */
 export async function extractImageText(buffer: Buffer): Promise<PositionedItem[]> {
-  // See the comment in pdf.ts: built by hand rather than via require.resolve()
-  // because a bundler can rewrite that into a build-time module id instead of a
-  // real path, even for a package marked external.
   const langDataPath = path.join(process.cwd(), 'node_modules', '@tesseract.js-data', 'spa', '4.0.0');
+  const hasLocalLang = fs.existsSync(langDataPath);
 
-  const worker = await createWorker('spa', undefined, { langPath: langDataPath, cacheMethod: 'none' });
+  const worker = await createWorker('spa', undefined, {
+    ...(hasLocalLang ? { langPath: langDataPath, cacheMethod: 'none' } : {}),
+  });
   try {
     // `blocks: true` is required — tesseract.js does not return per-word bounding
     // boxes at all unless explicitly asked for the full block/paragraph/line/word tree

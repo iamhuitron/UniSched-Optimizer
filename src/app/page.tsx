@@ -17,6 +17,15 @@ export default function Home() {
   const [mode, setMode] = useState<Mode>('auto');
   const [options, setOptions] = useState<ScheduleOption[] | null>(null);
 
+  function handleDatasetLoaded(newDataset: ScheduleDataset) {
+    setDataset(newDataset);
+    if (newDataset.subjects.length === 0) {
+      setMode('manual');
+    } else {
+      setMode('auto');
+    }
+  }
+
   function handlePrefs(prefs: Preferences) {
     if (!dataset) return;
     setOptions(solve(dataset.subjects, prefs));
@@ -43,8 +52,8 @@ export default function Home() {
 
       {!dataset && (
         <div className={styles.card}>
-          <UploadPanel onExtracted={setDataset} />
-          <CatalogBrowser onSelect={setDataset} />
+          <UploadPanel onExtracted={handleDatasetLoaded} />
+          <CatalogBrowser onSelect={handleDatasetLoaded} />
         </div>
       )}
 
