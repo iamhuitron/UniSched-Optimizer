@@ -20,12 +20,6 @@ export function solve(subjects: Subject[], prefs: Preferences = {}): ScheduleOpt
     ? subjects.filter((s) => prefs.requiredSubjectCodes!.includes(s.code))
     : subjects;
 
-  // most-constrained-first ordering improves pruning but doesn't change correctness
-  const ordered = [...required].sort((a, b) => a.sections.length - b.sections.length);
-
-  const results: ScheduleOption[] = [];
-  const chosen: ChosenSection[] = [];
-
   function blockAllowed(block: TimeBlock): boolean {
     if (prefs.earliestStart && toMinutes(block.start) < toMinutes(prefs.earliestStart)) return false;
     if (prefs.latestEnd && toMinutes(block.end) > toMinutes(prefs.latestEnd)) return false;
@@ -33,9 +27,32 @@ export function solve(subjects: Subject[], prefs: Preferences = {}): ScheduleOpt
     return true;
   }
 
+  function hasInternalConflict(blocks: TimeBlock[]): boolean {
+    for (let i = 0; i < blocks.length; i++) {
+      for (let j = i + 1; j < blocks.length; j++) {
+        if (blocksOverlap(blocks[i]!, blocks[j]!)) return true;
+      }
+    }
+    return false;
+  }
+
+  // pre-filter sections to remove invalid ones early
+  const filteredSubjects = required.map((subject) => ({
+    ...subject,
+    sections: subject.sections.filter(
+      (section) =>
+        section.blocks.every(blockAllowed) && !hasInternalConflict(section.blocks)
+    ),
+  }));
+
+  // most-constrained-first ordering improves pruning but doesn't change correctness
+  const ordered = [...filteredSubjects].sort((a, b) => a.sections.length - b.sections.length);
+
+  const results: ScheduleOption[] = [];
+  const chosen: ChosenSection[] = [];
+
   function fitsWithChosen(blocks: TimeBlock[]): boolean {
     for (const block of blocks) {
-      if (!blockAllowed(block)) return false;
       for (const c of chosen) {
         for (const cb of c.section.blocks) {
           if (blocksOverlap(block, cb)) return false;

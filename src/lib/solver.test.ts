@@ -79,4 +79,77 @@ describe('solve', () => {
     expect(options.length).toBeGreaterThan(0);
     for (const option of options) assertNoInternalOverlap(option);
   });
+
+  it('allows back-to-back classes without them conflicting', () => {
+    const edgeCaseSubjects: Subject[] = [
+      {
+        code: 'A',
+        name: 'A',
+        sections: [{ id: '1', blocks: [{ day: 1, start: '10:00', end: '11:00' }] }],
+      },
+      {
+        code: 'B',
+        name: 'B',
+        sections: [{ id: '1', blocks: [{ day: 1, start: '11:00', end: '12:00' }] }],
+      },
+    ];
+    const options = solve(edgeCaseSubjects);
+    expect(options.length).toBe(1);
+    expect(options[0]!.sections.length).toBe(2);
+  });
+
+  it('detects full containment overlaps as conflicts', () => {
+    const edgeCaseSubjects: Subject[] = [
+      {
+        code: 'A',
+        name: 'A',
+        sections: [{ id: '1', blocks: [{ day: 1, start: '09:00', end: '12:00' }] }],
+      },
+      {
+        code: 'B',
+        name: 'B',
+        sections: [{ id: '1', blocks: [{ day: 1, start: '10:00', end: '11:00' }] }],
+      },
+    ];
+    const options = solve(edgeCaseSubjects);
+    expect(options.length).toBe(0);
+  });
+
+  it('prunes sections with internal conflicts early', () => {
+    const edgeCaseSubjects: Subject[] = [
+      {
+        code: 'A',
+        name: 'A',
+        sections: [
+          {
+            id: '1',
+            blocks: [
+              { day: 1, start: '09:00', end: '11:00' },
+              { day: 1, start: '10:00', end: '12:00' },
+            ],
+          },
+        ],
+      },
+    ];
+    const options = solve(edgeCaseSubjects);
+    expect(options.length).toBe(0);
+  });
+
+  it('allows identical times on different days', () => {
+    const edgeCaseSubjects: Subject[] = [
+      {
+        code: 'A',
+        name: 'A',
+        sections: [{ id: '1', blocks: [{ day: 1, start: '10:00', end: '11:00' }] }],
+      },
+      {
+        code: 'B',
+        name: 'B',
+        sections: [{ id: '1', blocks: [{ day: 2, start: '10:00', end: '11:00' }] }],
+      },
+    ];
+    const options = solve(edgeCaseSubjects);
+    expect(options.length).toBe(1);
+    expect(options[0]!.sections.length).toBe(2);
+  });
 });
